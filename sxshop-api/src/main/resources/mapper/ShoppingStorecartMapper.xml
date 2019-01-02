@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingStorecartDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingStorecart" >
+	<id column="id" property="id"  />
+	 <result column="addTime" property="addTime"  />
+	 <result column="deleteStatus" property="deleteStatus"  />
+	 <result column="cart_session_id" property="cartSessionId"  />
+	 <result column="total_price" property="totalPrice"  />
+	 <result column="store_id" property="storeId"  />
+	 <result column="user_id" property="userId"  />
+	 <result column="sc_status" property="scStatus"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   id,
+   addTime,
+   deleteStatus,
+   cart_session_id,
+   total_price,
+   store_id,
+   user_id,
+   sc_status
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_storecart
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_storecart
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_storecart
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="id != null and id != ''"> and  id =#{id,jdbcType=VARCHAR} </if>
+   <if test="addTime != null and addTime != ''"> and  addTime =#{addTime,jdbcType=VARCHAR} </if>
+   <if test="deleteStatus != null and deleteStatus != ''"> and  deleteStatus =#{deleteStatus,jdbcType=VARCHAR} </if>
+   <if test="cartSessionId != null and cartSessionId != ''"> and  cart_session_id =#{cartSessionId,jdbcType=VARCHAR} </if>
+   <if test="totalPrice != null and totalPrice != ''"> and  total_price =#{totalPrice,jdbcType=VARCHAR} </if>
+   <if test="storeId != null and storeId != ''"> and  store_id =#{storeId,jdbcType=VARCHAR} </if>
+   <if test="userId != null and userId != ''"> and  user_id =#{userId,jdbcType=VARCHAR} </if>
+   <if test="scStatus != null and scStatus != ''"> and  sc_status =#{scStatus,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_storecart 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_storecart
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingStorecart"  useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into shopping_storecart (
+   id,
+      addTime,
+      deleteStatus,
+      cart_session_id,
+      total_price,
+      store_id,
+      user_id,
+      sc_status
+    )
+    values (
+ 	#{id,jdbcType=VARCHAR},
+ 	#{addTime,jdbcType=VARCHAR},
+ 	#{deleteStatus,jdbcType=VARCHAR},
+ 	#{cartSessionId,jdbcType=VARCHAR},
+ 	#{totalPrice,jdbcType=VARCHAR},
+ 	#{storeId,jdbcType=VARCHAR},
+ 	#{userId,jdbcType=VARCHAR},
+#{scStatus,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingStorecart" >
+    update shopping_storecart
+    set 
+  	id	=#{id,jdbcType=VARCHAR},
+  	addTime	=#{addTime,jdbcType=VARCHAR},
+  	deleteStatus	=#{deleteStatus,jdbcType=VARCHAR},
+  	cart_session_id	=#{cartSessionId,jdbcType=VARCHAR},
+  	total_price	=#{totalPrice,jdbcType=VARCHAR},
+  	store_id	=#{storeId,jdbcType=VARCHAR},
+  	user_id	=#{userId,jdbcType=VARCHAR},
+  	sc_status	= #{scStatus,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_storecart
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+</mapper>

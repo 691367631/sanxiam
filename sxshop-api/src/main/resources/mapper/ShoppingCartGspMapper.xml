@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingCartGspDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingCartGsp" >
+	 <result column="cart_id" property="cartId"  />
+	 <result column="gsp_id" property="gspId"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   cart_id,
+   gsp_id
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_cart_gsp
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_cart_gsp
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_cart_gsp
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="cartId != null and cartId != ''"> and  cart_id =#{cartId,jdbcType=VARCHAR} </if>
+   <if test="gspId != null and gspId != ''"> and  gsp_id =#{gspId,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_cart_gsp 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_cart_gsp
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingCartGsp" >
+    insert into shopping_cart_gsp (
+   cart_id,
+      gsp_id
+    )
+    values (
+ 	#{cartId,jdbcType=VARCHAR},
+#{gspId,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingCartGsp" >
+    update shopping_cart_gsp
+    set 
+  	cart_id	=#{cartId,jdbcType=VARCHAR},
+  	gsp_id	= #{gspId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_cart_gsp
+		where  cart_id = #{id,jdbcType=VARCHAR}
+	</delete>
+</mapper>

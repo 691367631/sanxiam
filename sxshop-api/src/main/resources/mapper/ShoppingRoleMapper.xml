@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingRoleDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingRole" >
+	<id column="id" property="id"  />
+	 <result column="addTime" property="addTime"  />
+	 <result column="deleteStatus" property="deleteStatus"  />
+	 <result column="display" property="display"  />
+	 <result column="info" property="info"  />
+	 <result column="roleCode" property="roleCode"  />
+	 <result column="roleName" property="roleName"  />
+	 <result column="sequence" property="sequence"  />
+	 <result column="type" property="type"  />
+	 <result column="rg_id" property="rgId"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   id,
+   addTime,
+   deleteStatus,
+   display,
+   info,
+   roleCode,
+   roleName,
+   sequence,
+   type,
+   rg_id
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_role
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_role
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_role
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="id != null and id != ''"> and  id =#{id,jdbcType=VARCHAR} </if>
+   <if test="addTime != null and addTime != ''"> and  addTime =#{addTime,jdbcType=VARCHAR} </if>
+   <if test="deleteStatus != null and deleteStatus != ''"> and  deleteStatus =#{deleteStatus,jdbcType=VARCHAR} </if>
+   <if test="display != null and display != ''"> and  display =#{display,jdbcType=VARCHAR} </if>
+   <if test="info != null and info != ''"> and  info =#{info,jdbcType=VARCHAR} </if>
+   <if test="roleCode != null and roleCode != ''"> and  roleCode =#{roleCode,jdbcType=VARCHAR} </if>
+   <if test="roleName != null and roleName != ''"> and  roleName =#{roleName,jdbcType=VARCHAR} </if>
+   <if test="sequence != null and sequence != ''"> and  sequence =#{sequence,jdbcType=VARCHAR} </if>
+   <if test="type != null and type != ''"> and  type =#{type,jdbcType=VARCHAR} </if>
+   <if test="rgId != null and rgId != ''"> and  rg_id =#{rgId,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_role 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_role
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingRole" >
+    insert into shopping_role (
+   id,
+      addTime,
+      deleteStatus,
+      display,
+      info,
+      roleCode,
+      roleName,
+      sequence,
+      type,
+      rg_id
+    )
+    values (
+ 	#{id,jdbcType=VARCHAR},
+ 	#{addTime,jdbcType=VARCHAR},
+ 	#{deleteStatus,jdbcType=VARCHAR},
+ 	#{display,jdbcType=VARCHAR},
+ 	#{info,jdbcType=VARCHAR},
+ 	#{roleCode,jdbcType=VARCHAR},
+ 	#{roleName,jdbcType=VARCHAR},
+ 	#{sequence,jdbcType=VARCHAR},
+ 	#{type,jdbcType=VARCHAR},
+#{rgId,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingRole" >
+    update shopping_role
+    set 
+  	id	=#{id,jdbcType=VARCHAR},
+  	addTime	=#{addTime,jdbcType=VARCHAR},
+  	deleteStatus	=#{deleteStatus,jdbcType=VARCHAR},
+  	display	=#{display,jdbcType=VARCHAR},
+  	info	=#{info,jdbcType=VARCHAR},
+  	roleCode	=#{roleCode,jdbcType=VARCHAR},
+  	roleName	=#{roleName,jdbcType=VARCHAR},
+  	sequence	=#{sequence,jdbcType=VARCHAR},
+  	type	=#{type,jdbcType=VARCHAR},
+  	rg_id	= #{rgId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_role
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+</mapper>

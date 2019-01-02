@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingOrderformDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingOrderform" >
+	<id column="id" property="id"  />
+	 <result column="addTime" property="addTime"  />
+	 <result column="deleteStatus" property="deleteStatus"  />
+	 <result column="finishTime" property="finishTime"  />
+	 <result column="goods_amount" property="goodsAmount"  />
+	 <result column="invoice" property="invoice"  />
+	 <result column="invoiceType" property="invoiceType"  />
+	 <result column="msg" property="msg"  />
+	 <result column="order_id" property="orderId"  />
+	 <result column="order_status" property="orderStatus"  />
+	 <result column="payTime" property="payTime"  />
+	 <result column="pay_msg" property="payMsg"  />
+	 <result column="refund" property="refund"  />
+	 <result column="refund_type" property="refundType"  />
+	 <result column="shipCode" property="shipCode"  />
+	 <result column="shipTime" property="shipTime"  />
+	 <result column="ship_price" property="shipPrice"  />
+	 <result column="totalPrice" property="totalPrice"  />
+	 <result column="addr_id" property="addrId"  />
+	 <result column="payment_id" property="paymentId"  />
+	 <result column="store_id" property="storeId"  />
+	 <result column="user_id" property="userId"  />
+	 <result column="auto_confirm_email" property="autoConfirmEmail"  />
+	 <result column="auto_confirm_sms" property="autoConfirmSms"  />
+	 <result column="transport" property="transport"  />
+	 <result column="out_order_id" property="outOrderId"  />
+	 <result column="ec_id" property="ecId"  />
+	 <result column="ci_id" property="ciId"  />
+	 <result column="order_seller_intro" property="orderSellerIntro"  />
+	 <result column="return_shipCode" property="returnShipCode"  />
+	 <result column="return_ec_id" property="returnEcId"  />
+	 <result column="return_content" property="returnContent"  />
+	 <result column="return_shipTime" property="returnShipTime"  />
+	 <result column="order_type" property="orderType"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   id,
+   addTime,
+   deleteStatus,
+   finishTime,
+   goods_amount,
+   invoice,
+   invoiceType,
+   msg,
+   order_id,
+   order_status,
+   payTime,
+   pay_msg,
+   refund,
+   refund_type,
+   shipCode,
+   shipTime,
+   ship_price,
+   totalPrice,
+   addr_id,
+   payment_id,
+   store_id,
+   user_id,
+   auto_confirm_email,
+   auto_confirm_sms,
+   transport,
+   out_order_id,
+   ec_id,
+   ci_id,
+   order_seller_intro,
+   return_shipCode,
+   return_ec_id,
+   return_content,
+   return_shipTime,
+   order_type
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_orderform
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_orderform
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_orderform
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="id != null and id != ''"> and  id =#{id,jdbcType=VARCHAR} </if>
+   <if test="addTime != null and addTime != ''"> and  addTime =#{addTime,jdbcType=VARCHAR} </if>
+   <if test="deleteStatus != null and deleteStatus != ''"> and  deleteStatus =#{deleteStatus,jdbcType=VARCHAR} </if>
+   <if test="finishTime != null and finishTime != ''"> and  finishTime =#{finishTime,jdbcType=VARCHAR} </if>
+   <if test="goodsAmount != null and goodsAmount != ''"> and  goods_amount =#{goodsAmount,jdbcType=VARCHAR} </if>
+   <if test="invoice != null and invoice != ''"> and  invoice =#{invoice,jdbcType=VARCHAR} </if>
+   <if test="invoiceType != null and invoiceType != ''"> and  invoiceType =#{invoiceType,jdbcType=VARCHAR} </if>
+   <if test="msg != null and msg != ''"> and  msg =#{msg,jdbcType=VARCHAR} </if>
+   <if test="orderId != null and orderId != ''"> and  order_id =#{orderId,jdbcType=VARCHAR} </if>
+   <if test="orderStatus != null and orderStatus != ''"> and  order_status =#{orderStatus,jdbcType=VARCHAR} </if>
+   <if test="payTime != null and payTime != ''"> and  payTime =#{payTime,jdbcType=VARCHAR} </if>
+   <if test="payMsg != null and payMsg != ''"> and  pay_msg =#{payMsg,jdbcType=VARCHAR} </if>
+   <if test="refund != null and refund != ''"> and  refund =#{refund,jdbcType=VARCHAR} </if>
+   <if test="refundType != null and refundType != ''"> and  refund_type =#{refundType,jdbcType=VARCHAR} </if>
+   <if test="shipCode != null and shipCode != ''"> and  shipCode =#{shipCode,jdbcType=VARCHAR} </if>
+   <if test="shipTime != null and shipTime != ''"> and  shipTime =#{shipTime,jdbcType=VARCHAR} </if>
+   <if test="shipPrice != null and shipPrice != ''"> and  ship_price =#{shipPrice,jdbcType=VARCHAR} </if>
+   <if test="totalPrice != null and totalPrice != ''"> and  totalPrice =#{totalPrice,jdbcType=VARCHAR} </if>
+   <if test="addrId != null and addrId != ''"> and  addr_id =#{addrId,jdbcType=VARCHAR} </if>
+   <if test="paymentId != null and paymentId != ''"> and  payment_id =#{paymentId,jdbcType=VARCHAR} </if>
+   <if test="storeId != null and storeId != ''"> and  store_id =#{storeId,jdbcType=VARCHAR} </if>
+   <if test="userId != null and userId != ''"> and  user_id =#{userId,jdbcType=VARCHAR} </if>
+   <if test="autoConfirmEmail != null and autoConfirmEmail != ''"> and  auto_confirm_email =#{autoConfirmEmail,jdbcType=VARCHAR} </if>
+   <if test="autoConfirmSms != null and autoConfirmSms != ''"> and  auto_confirm_sms =#{autoConfirmSms,jdbcType=VARCHAR} </if>
+   <if test="transport != null and transport != ''"> and  transport =#{transport,jdbcType=VARCHAR} </if>
+   <if test="outOrderId != null and outOrderId != ''"> and  out_order_id =#{outOrderId,jdbcType=VARCHAR} </if>
+   <if test="ecId != null and ecId != ''"> and  ec_id =#{ecId,jdbcType=VARCHAR} </if>
+   <if test="ciId != null and ciId != ''"> and  ci_id =#{ciId,jdbcType=VARCHAR} </if>
+   <if test="orderSellerIntro != null and orderSellerIntro != ''"> and  order_seller_intro =#{orderSellerIntro,jdbcType=VARCHAR} </if>
+   <if test="returnShipCode != null and returnShipCode != ''"> and  return_shipCode =#{returnShipCode,jdbcType=VARCHAR} </if>
+   <if test="returnEcId != null and returnEcId != ''"> and  return_ec_id =#{returnEcId,jdbcType=VARCHAR} </if>
+   <if test="returnContent != null and returnContent != ''"> and  return_content =#{returnContent,jdbcType=VARCHAR} </if>
+   <if test="returnShipTime != null and returnShipTime != ''"> and  return_shipTime =#{returnShipTime,jdbcType=VARCHAR} </if>
+   <if test="orderType != null and orderType != ''"> and  order_type =#{orderType,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_orderform 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_orderform
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingOrderform" useGeneratedKeys="true" keyProperty="id" keyColumn="id" >
+    insert into shopping_orderform (
+   id,
+      addTime,
+      deleteStatus,
+      finishTime,
+      goods_amount,
+      invoice,
+      invoiceType,
+      msg,
+      order_id,
+      order_status,
+      payTime,
+      pay_msg,
+      refund,
+      refund_type,
+      shipCode,
+      shipTime,
+      ship_price,
+      totalPrice,
+      addr_id,
+      payment_id,
+      store_id,
+      user_id,
+      auto_confirm_email,
+      auto_confirm_sms,
+      transport,
+      out_order_id,
+      ec_id,
+      ci_id,
+      order_seller_intro,
+      return_shipCode,
+      return_ec_id,
+      return_content,
+      return_shipTime,
+      order_type
+    )
+    values (
+ 	#{id,jdbcType=VARCHAR},
+ 	#{addTime,jdbcType=VARCHAR},
+ 	#{deleteStatus,jdbcType=VARCHAR},
+ 	#{finishTime,jdbcType=VARCHAR},
+ 	#{goodsAmount,jdbcType=VARCHAR},
+ 	#{invoice,jdbcType=VARCHAR},
+ 	#{invoiceType,jdbcType=VARCHAR},
+ 	#{msg,jdbcType=VARCHAR},
+ 	#{orderId,jdbcType=VARCHAR},
+ 	#{orderStatus,jdbcType=VARCHAR},
+ 	#{payTime,jdbcType=VARCHAR},
+ 	#{payMsg,jdbcType=VARCHAR},
+ 	#{refund,jdbcType=VARCHAR},
+ 	#{refundType,jdbcType=VARCHAR},
+ 	#{shipCode,jdbcType=VARCHAR},
+ 	#{shipTime,jdbcType=VARCHAR},
+ 	#{shipPrice,jdbcType=VARCHAR},
+ 	#{totalPrice,jdbcType=VARCHAR},
+ 	#{addrId,jdbcType=VARCHAR},
+ 	#{paymentId,jdbcType=VARCHAR},
+ 	#{storeId,jdbcType=VARCHAR},
+ 	#{userId,jdbcType=VARCHAR},
+ 	#{autoConfirmEmail,jdbcType=VARCHAR},
+ 	#{autoConfirmSms,jdbcType=VARCHAR},
+ 	#{transport,jdbcType=VARCHAR},
+ 	#{outOrderId,jdbcType=VARCHAR},
+ 	#{ecId,jdbcType=VARCHAR},
+ 	#{ciId,jdbcType=VARCHAR},
+ 	#{orderSellerIntro,jdbcType=VARCHAR},
+ 	#{returnShipCode,jdbcType=VARCHAR},
+ 	#{returnEcId,jdbcType=VARCHAR},
+ 	#{returnContent,jdbcType=VARCHAR},
+ 	#{returnShipTime,jdbcType=VARCHAR},
+#{orderType,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingOrderform" >
+    update shopping_orderform
+    set 
+  	id	=#{id,jdbcType=VARCHAR},
+  	addTime	=#{addTime,jdbcType=VARCHAR},
+  	deleteStatus	=#{deleteStatus,jdbcType=VARCHAR},
+  	finishTime	=#{finishTime,jdbcType=VARCHAR},
+  	goods_amount	=#{goodsAmount,jdbcType=VARCHAR},
+  	invoice	=#{invoice,jdbcType=VARCHAR},
+  	invoiceType	=#{invoiceType,jdbcType=VARCHAR},
+  	msg	=#{msg,jdbcType=VARCHAR},
+  	order_id	=#{orderId,jdbcType=VARCHAR},
+  	order_status	=#{orderStatus,jdbcType=VARCHAR},
+  	payTime	=#{payTime,jdbcType=VARCHAR},
+  	pay_msg	=#{payMsg,jdbcType=VARCHAR},
+  	refund	=#{refund,jdbcType=VARCHAR},
+  	refund_type	=#{refundType,jdbcType=VARCHAR},
+  	shipCode	=#{shipCode,jdbcType=VARCHAR},
+  	shipTime	=#{shipTime,jdbcType=VARCHAR},
+  	ship_price	=#{shipPrice,jdbcType=VARCHAR},
+  	totalPrice	=#{totalPrice,jdbcType=VARCHAR},
+  	addr_id	=#{addrId,jdbcType=VARCHAR},
+  	payment_id	=#{paymentId,jdbcType=VARCHAR},
+  	store_id	=#{storeId,jdbcType=VARCHAR},
+  	user_id	=#{userId,jdbcType=VARCHAR},
+  	auto_confirm_email	=#{autoConfirmEmail,jdbcType=VARCHAR},
+  	auto_confirm_sms	=#{autoConfirmSms,jdbcType=VARCHAR},
+  	transport	=#{transport,jdbcType=VARCHAR},
+  	out_order_id	=#{outOrderId,jdbcType=VARCHAR},
+  	ec_id	=#{ecId,jdbcType=VARCHAR},
+  	ci_id	=#{ciId,jdbcType=VARCHAR},
+  	order_seller_intro	=#{orderSellerIntro,jdbcType=VARCHAR},
+  	return_shipCode	=#{returnShipCode,jdbcType=VARCHAR},
+  	return_ec_id	=#{returnEcId,jdbcType=VARCHAR},
+  	return_content	=#{returnContent,jdbcType=VARCHAR},
+  	return_shipTime	=#{returnShipTime,jdbcType=VARCHAR},
+  	order_type	= #{orderType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_orderform
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	
+     <resultMap id="queryOrderResultMap" type="com.sanxia.market.dto.order.QueryOrderResponse" >
+	 <id column="id" property="id"  />
+	 <result column="user_id" property="user_id"  />
+	 <result column="order_no" property="order_no"  />
+	 <result column="order_time" property="order_time"  />
+	 <result column="order_status" property="order_status"  />
+	 <result column="payment_type" property="payment_type"  />
+	 <result column="order_type" property="order_type"  />
+	 <result column="store_name" property="store_name"  />
+	 <result column="totalPrice" property="totalPrice"  />
+	 <result column="ship_price" property="ship_price"  />
+	 </resultMap>
+	 
+	<sql id="queryOrder_sql">
+     <if test="begin_time != null and begin_time != ''"> and <![CDATA[ a.addTime >= #{begin_time,jdbcType=VARCHAR} ]]>  </if>
+     <if test="end_time != null and end_time != ''"> and <![CDATA[ a.addTime <= #{end_time,jdbcType=VARCHAR} ]]> </if>
+     <if test="order_no != null and order_no != ''"> and  a.order_id = #{order_no,jdbcType=VARCHAR} </if>
+     <if test="order_status != null and order_status != ''"> and  a.order_status = #{order_status,jdbcType=VARCHAR} </if>
+     <if test="user_id != null and user_id != ''"> and  a.user_id = #{user_id,jdbcType=VARCHAR} </if>
+    </sql>
+	  <select id="queryOrder" parameterType="java.util.Map" resultMap="queryOrderResultMap">
+         select a.id,a.user_id,a.`order_id` as order_no ,a.`addTime` as order_time ,a.`order_status`,ifnull(a.order_type,'未知') as order_type,a.totalPrice,a.ship_price,ifnull(b.`name`,'未知') as payment_type,c.`store_name` from `shopping_orderform` a left join `shopping_payment` b on a.`payment_id` =b.`id` left join `shopping_store` c on a.`store_id`=c.`id`  
+    <where>
+      <include refid="queryOrder_sql" />
+    </where>
+    <![CDATA[ order by a.addTime desc limit #{pageFirst}, #{pageSize}]]> 
+  </select>
+  
+    <select id="queryOrderlistPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from (
+    select a.id,a.user_id,a.`order_id` as order_no ,a.`addTime` as order_time ,a.`order_status`,ifnull(a.order_type,'未知') as order_type,a.totalPrice,a.ship_price,ifnull(b.`name`,'未知') as payment_type,c.`store_name` from `shopping_orderform` a left join `shopping_payment` b on a.`payment_id` =b.`id` left join `shopping_store` c on a.`store_id`=c.`id`  
+    <where>
+      <include refid="queryOrder_sql" />
+    </where>
+    ) m
+  </select>
+  
+  
+       <resultMap id="queryOrderDetailResultMap" type="com.sanxia.market.dto.order.QueryOrderDetailResponse" >
+	 <result column="order_id" property="order_id"  />
+	 <result column="user_id" property="user_id"  />
+	 <result column="order_no" property="order_no"  />
+	 <result column="order_status" property="order_status"  />
+	 <result column="order_time" property="order_time"  />
+	 <result column="transport" property="transport"  />
+	 <result column="ship_price" property="ship_price"  />
+	 <result column="totalPrice" property="totalPrice"  />
+	 <result column="payment_type" property="payment_type"  />
+	 <result column="payTime" property="payTime"  />
+	 <result column="a_true_name" property="a_true_name"  />
+	 <result column="a_addr_address" property="a_addr_address"  />
+	 <result column="a_zip" property="a_zip"  />
+	 <result column="a_telephone" property="a_telephone"  />
+	 <result column="a_mobile" property="a_mobile"  />
+	 <result column="invoiceType" property="invoiceType"  />
+	 <result column="invoice" property="invoice"  />
+	 <result column="ec_name" property="ec_name"  />
+	 <result column="shipCode" property="shipCode"  />
+	 </resultMap>
+	 
+	<sql id="queryOrderDetail_sql">
+     <if test="order_id != null and order_id != ''"> and  a.id = #{order_id,jdbcType=VARCHAR} </if>
+    </sql>
+	  <select id="queryOrderDetail" parameterType="java.util.Map" resultMap="queryOrderDetailResultMap">
+		   SELECT a.id AS order_id ,a.`user_id` AS user_id,a.`order_id` AS order_no ,a.`order_status` AS order_status,a.`addTime` AS order_time ,a.`transport` AS transport ,
+		a.`ship_price` AS ship_price,a.`totalPrice` AS totalPrice,a.payTime AS payTime ,a.`invoiceType` AS invoiceType,a.`invoice` AS invoice ,
+		a.shipCode AS shipCode , b.`name`  AS  payment_type,c.`company_name` AS ec_name ,d.`trueName` AS  a_true_name,d.`zip` AS a_zip,
+		d.`telephone` AS  a_telephone, d.`mobile` AS a_mobile,CONCAT( g.`areaName`,' ',f.`areaName`,' ',e.`areaName`,' ',d.`area_info`)  AS  a_addr_address      
+		FROM `shopping_orderform` a LEFT JOIN  `shopping_payment` b ON a.`payment_id` =b.`id`  LEFT JOIN `shopping_express_company` c ON a.`ec_id`=c.`id` 
+		LEFT JOIN `shopping_address` d ON a.`addr_id` =d.`id` LEFT JOIN  `shopping_area` e ON d.`area_id`=e.`id`
+		LEFT JOIN shopping_area f ON e.`parent_id`=f.`id` LEFT JOIN shopping_area g ON f.`parent_id`=g.`id`
+    <where>
+      <include refid="queryOrderDetail_sql" />
+    </where>
+  <!--   <![CDATA[ order by a.addTime desc limit #{pageFirst}, #{pageSize}]]>  -->
+  </select>
+</mapper>

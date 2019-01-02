@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingIntegrallogDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingIntegrallog" >
+	<id column="id" property="id"  />
+	 <result column="addTime" property="addTime"  />
+	 <result column="deleteStatus" property="deleteStatus"  />
+	 <result column="content" property="content"  />
+	 <result column="integral" property="integral"  />
+	 <result column="type" property="type"  />
+	 <result column="integral_user_id" property="integralUserId"  />
+	 <result column="operate_user_id" property="operateUserId"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   id,
+   addTime,
+   deleteStatus,
+   content,
+   integral,
+   type,
+   integral_user_id,
+   operate_user_id
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_integrallog
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_integrallog
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_integrallog
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="id != null and id != ''"> and  id =#{id,jdbcType=VARCHAR} </if>
+   <if test="addTime != null and addTime != ''"> and  addTime =#{addTime,jdbcType=VARCHAR} </if>
+   <if test="deleteStatus != null and deleteStatus != ''"> and  deleteStatus =#{deleteStatus,jdbcType=VARCHAR} </if>
+   <if test="content != null and content != ''"> and  content =#{content,jdbcType=VARCHAR} </if>
+   <if test="integral != null and integral != ''"> and  integral =#{integral,jdbcType=VARCHAR} </if>
+   <if test="type != null and type != ''"> and  type =#{type,jdbcType=VARCHAR} </if>
+   <if test="integralUserId != null and integralUserId != ''"> and  integral_user_id =#{integralUserId,jdbcType=VARCHAR} </if>
+   <if test="operateUserId != null and operateUserId != ''"> and  operate_user_id =#{operateUserId,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_integrallog 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_integrallog
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingIntegrallog" >
+    insert into shopping_integrallog (
+   id,
+      addTime,
+      deleteStatus,
+      content,
+      integral,
+      type,
+      integral_user_id,
+      operate_user_id
+    )
+    values (
+ 	#{id,jdbcType=VARCHAR},
+ 	#{addTime,jdbcType=VARCHAR},
+ 	#{deleteStatus,jdbcType=VARCHAR},
+ 	#{content,jdbcType=VARCHAR},
+ 	#{integral,jdbcType=VARCHAR},
+ 	#{type,jdbcType=VARCHAR},
+ 	#{integralUserId,jdbcType=VARCHAR},
+#{operateUserId,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingIntegrallog" >
+    update shopping_integrallog
+    set 
+  	id	=#{id,jdbcType=VARCHAR},
+  	addTime	=#{addTime,jdbcType=VARCHAR},
+  	deleteStatus	=#{deleteStatus,jdbcType=VARCHAR},
+  	content	=#{content,jdbcType=VARCHAR},
+  	integral	=#{integral,jdbcType=VARCHAR},
+  	type	=#{type,jdbcType=VARCHAR},
+  	integral_user_id	=#{integralUserId,jdbcType=VARCHAR},
+  	operate_user_id	= #{operateUserId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_integrallog
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+</mapper>

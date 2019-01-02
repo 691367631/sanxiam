@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingUserDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingUser" >
+	<id column="id" property="id"  />
+	 <result column="addTime" property="addTime"  />
+	 <result column="deleteStatus" property="deleteStatus"  />
+	 <result column="MSN" property="mSN"  />
+	 <result column="QQ" property="qQ"  />
+	 <result column="WW" property="wW"  />
+	 <result column="address" property="address"  />
+	 <result column="availableBalance" property="availableBalance"  />
+	 <result column="birthday" property="birthday"  />
+	 <result column="email" property="email"  />
+	 <result column="freezeBlance" property="freezeBlance"  />
+	 <result column="gold" property="gold"  />
+	 <result column="integral" property="integral"  />
+	 <result column="lastLoginDate" property="lastLoginDate"  />
+	 <result column="lastLoginIp" property="lastLoginIp"  />
+	 <result column="loginCount" property="loginCount"  />
+	 <result column="loginDate" property="loginDate"  />
+	 <result column="loginIp" property="loginIp"  />
+	 <result column="mobile" property="mobile"  />
+	 <result column="password" property="password"  />
+	 <result column="report" property="report"  />
+	 <result column="sex" property="sex"  />
+	 <result column="status" property="status"  />
+	 <result column="telephone" property="telephone"  />
+	 <result column="trueName" property="trueName"  />
+	 <result column="userName" property="userName"  />
+	 <result column="userRole" property="userRole"  />
+	 <result column="user_credit" property="userCredit"  />
+	 <result column="photo_id" property="photoId"  />
+	 <result column="store_id" property="storeId"  />
+	 <result column="qq_openid" property="qqOpenid"  />
+	 <result column="sina_openid" property="sinaOpenid"  />
+	 <result column="store_quick_menu" property="storeQuickMenu"  />
+	 <result column="parent_id" property="parentId"  />
+	 <result column="years" property="years"  />
+	 <result column="area_id" property="areaId"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   id,
+   addTime,
+   deleteStatus,
+   MSN,
+   QQ,
+   WW,
+   address,
+   availableBalance,
+   birthday,
+   email,
+   freezeBlance,
+   gold,
+   integral,
+   lastLoginDate,
+   lastLoginIp,
+   loginCount,
+   loginDate,
+   loginIp,
+   mobile,
+   password,
+   report,
+   sex,
+   status,
+   telephone,
+   trueName,
+   userName,
+   userRole,
+   user_credit,
+   photo_id,
+   store_id,
+   qq_openid,
+   sina_openid,
+   store_quick_menu,
+   parent_id,
+   years,
+   area_id
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_user
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_user
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_user
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="id != null and id != ''"> and  id =#{id,jdbcType=VARCHAR} </if>
+   <if test="addTime != null and addTime != ''"> and  addTime =#{addTime,jdbcType=VARCHAR} </if>
+   <if test="deleteStatus != null and deleteStatus != ''"> and  deleteStatus =#{deleteStatus,jdbcType=VARCHAR} </if>
+   <if test="mSN != null and mSN != ''"> and  MSN =#{mSN,jdbcType=VARCHAR} </if>
+   <if test="qQ != null and qQ != ''"> and  QQ =#{qQ,jdbcType=VARCHAR} </if>
+   <if test="wW != null and wW != ''"> and  WW =#{wW,jdbcType=VARCHAR} </if>
+   <if test="address != null and address != ''"> and  address =#{address,jdbcType=VARCHAR} </if>
+   <if test="availableBalance != null and availableBalance != ''"> and  availableBalance =#{availableBalance,jdbcType=VARCHAR} </if>
+   <if test="birthday != null and birthday != ''"> and  birthday =#{birthday,jdbcType=VARCHAR} </if>
+   <if test="email != null and email != ''"> and  email =#{email,jdbcType=VARCHAR} </if>
+   <if test="freezeBlance != null and freezeBlance != ''"> and  freezeBlance =#{freezeBlance,jdbcType=VARCHAR} </if>
+   <if test="gold != null and gold != ''"> and  gold =#{gold,jdbcType=VARCHAR} </if>
+   <if test="integral != null and integral != ''"> and  integral =#{integral,jdbcType=VARCHAR} </if>
+   <if test="lastLoginDate != null and lastLoginDate != ''"> and  lastLoginDate =#{lastLoginDate,jdbcType=VARCHAR} </if>
+   <if test="lastLoginIp != null and lastLoginIp != ''"> and  lastLoginIp =#{lastLoginIp,jdbcType=VARCHAR} </if>
+   <if test="loginCount != null and loginCount != ''"> and  loginCount =#{loginCount,jdbcType=VARCHAR} </if>
+   <if test="loginDate != null and loginDate != ''"> and  loginDate =#{loginDate,jdbcType=VARCHAR} </if>
+   <if test="loginIp != null and loginIp != ''"> and  loginIp =#{loginIp,jdbcType=VARCHAR} </if>
+   <if test="mobile != null and mobile != ''"> and  mobile =#{mobile,jdbcType=VARCHAR} </if>
+   <if test="password != null and password != ''"> and  password =#{password,jdbcType=VARCHAR} </if>
+   <if test="report != null and report != ''"> and  report =#{report,jdbcType=VARCHAR} </if>
+   <if test="sex != null and sex != ''"> and  sex =#{sex,jdbcType=VARCHAR} </if>
+   <if test="status != null and status != ''"> and  status =#{status,jdbcType=VARCHAR} </if>
+   <if test="telephone != null and telephone != ''"> and  telephone =#{telephone,jdbcType=VARCHAR} </if>
+   <if test="trueName != null and trueName != ''"> and  trueName =#{trueName,jdbcType=VARCHAR} </if>
+   <if test="userName != null and userName != ''"> and  userName =#{userName,jdbcType=VARCHAR} </if>
+   <if test="userRole != null and userRole != ''"> and  userRole =#{userRole,jdbcType=VARCHAR} </if>
+   <if test="userCredit != null and userCredit != ''"> and  user_credit =#{userCredit,jdbcType=VARCHAR} </if>
+   <if test="photoId != null and photoId != ''"> and  photo_id =#{photoId,jdbcType=VARCHAR} </if>
+   <if test="storeId != null and storeId != ''"> and  store_id =#{storeId,jdbcType=VARCHAR} </if>
+   <if test="qqOpenid != null and qqOpenid != ''"> and  qq_openid =#{qqOpenid,jdbcType=VARCHAR} </if>
+   <if test="sinaOpenid != null and sinaOpenid != ''"> and  sina_openid =#{sinaOpenid,jdbcType=VARCHAR} </if>
+   <if test="storeQuickMenu != null and storeQuickMenu != ''"> and  store_quick_menu =#{storeQuickMenu,jdbcType=VARCHAR} </if>
+   <if test="parentId != null and parentId != ''"> and  parent_id =#{parentId,jdbcType=VARCHAR} </if>
+   <if test="years != null and years != ''"> and  years =#{years,jdbcType=VARCHAR} </if>
+   <if test="areaId != null and areaId != ''"> and  area_id =#{areaId,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_user 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_user
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingUser" >
+    insert into shopping_user (
+   id,
+      addTime,
+      deleteStatus,
+      MSN,
+      QQ,
+      WW,
+      address,
+      availableBalance,
+      birthday,
+      email,
+      freezeBlance,
+      gold,
+      integral,
+      lastLoginDate,
+      lastLoginIp,
+      loginCount,
+      loginDate,
+      loginIp,
+      mobile,
+      password,
+      report,
+      sex,
+      status,
+      telephone,
+      trueName,
+      userName,
+      userRole,
+      user_credit,
+      photo_id,
+      store_id,
+      qq_openid,
+      sina_openid,
+      store_quick_menu,
+      parent_id,
+      years,
+      area_id
+    )
+    values (
+ 	#{id,jdbcType=VARCHAR},
+ 	#{addTime,jdbcType=VARCHAR},
+ 	#{deleteStatus,jdbcType=VARCHAR},
+ 	#{mSN,jdbcType=VARCHAR},
+ 	#{qQ,jdbcType=VARCHAR},
+ 	#{wW,jdbcType=VARCHAR},
+ 	#{address,jdbcType=VARCHAR},
+ 	#{availableBalance,jdbcType=VARCHAR},
+ 	#{birthday,jdbcType=VARCHAR},
+ 	#{email,jdbcType=VARCHAR},
+ 	#{freezeBlance,jdbcType=VARCHAR},
+ 	#{gold,jdbcType=VARCHAR},
+ 	#{integral,jdbcType=VARCHAR},
+ 	#{lastLoginDate,jdbcType=VARCHAR},
+ 	#{lastLoginIp,jdbcType=VARCHAR},
+ 	#{loginCount,jdbcType=VARCHAR},
+ 	#{loginDate,jdbcType=VARCHAR},
+ 	#{loginIp,jdbcType=VARCHAR},
+ 	#{mobile,jdbcType=VARCHAR},
+ 	#{password,jdbcType=VARCHAR},
+ 	#{report,jdbcType=VARCHAR},
+ 	#{sex,jdbcType=VARCHAR},
+ 	#{status,jdbcType=VARCHAR},
+ 	#{telephone,jdbcType=VARCHAR},
+ 	#{trueName,jdbcType=VARCHAR},
+ 	#{userName,jdbcType=VARCHAR},
+ 	#{userRole,jdbcType=VARCHAR},
+ 	#{userCredit,jdbcType=VARCHAR},
+ 	#{photoId,jdbcType=VARCHAR},
+ 	#{storeId,jdbcType=VARCHAR},
+ 	#{qqOpenid,jdbcType=VARCHAR},
+ 	#{sinaOpenid,jdbcType=VARCHAR},
+ 	#{storeQuickMenu,jdbcType=VARCHAR},
+ 	#{parentId,jdbcType=VARCHAR},
+ 	#{years,jdbcType=VARCHAR},
+#{areaId,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingUser" >
+    update shopping_user
+    set 
+  	id	=#{id,jdbcType=VARCHAR},
+  	addTime	=#{addTime,jdbcType=VARCHAR},
+  	deleteStatus	=#{deleteStatus,jdbcType=VARCHAR},
+  	MSN	=#{mSN,jdbcType=VARCHAR},
+  	QQ	=#{qQ,jdbcType=VARCHAR},
+  	WW	=#{wW,jdbcType=VARCHAR},
+  	address	=#{address,jdbcType=VARCHAR},
+  	availableBalance	=#{availableBalance,jdbcType=VARCHAR},
+  	birthday	=#{birthday,jdbcType=VARCHAR},
+  	email	=#{email,jdbcType=VARCHAR},
+  	freezeBlance	=#{freezeBlance,jdbcType=VARCHAR},
+  	gold	=#{gold,jdbcType=VARCHAR},
+  	integral	=#{integral,jdbcType=VARCHAR},
+  	lastLoginDate	=#{lastLoginDate,jdbcType=VARCHAR},
+  	lastLoginIp	=#{lastLoginIp,jdbcType=VARCHAR},
+  	loginCount	=#{loginCount,jdbcType=VARCHAR},
+  	loginDate	=#{loginDate,jdbcType=VARCHAR},
+  	loginIp	=#{loginIp,jdbcType=VARCHAR},
+  	mobile	=#{mobile,jdbcType=VARCHAR},
+  	password	=#{password,jdbcType=VARCHAR},
+  	report	=#{report,jdbcType=VARCHAR},
+  	sex	=#{sex,jdbcType=VARCHAR},
+  	status	=#{status,jdbcType=VARCHAR},
+  	telephone	=#{telephone,jdbcType=VARCHAR},
+  	trueName	=#{trueName,jdbcType=VARCHAR},
+  	userName	=#{userName,jdbcType=VARCHAR},
+  	userRole	=#{userRole,jdbcType=VARCHAR},
+  	user_credit	=#{userCredit,jdbcType=VARCHAR},
+  	photo_id	=#{photoId,jdbcType=VARCHAR},
+  	store_id	=#{storeId,jdbcType=VARCHAR},
+  	qq_openid	=#{qqOpenid,jdbcType=VARCHAR},
+  	sina_openid	=#{sinaOpenid,jdbcType=VARCHAR},
+  	store_quick_menu	=#{storeQuickMenu,jdbcType=VARCHAR},
+  	parent_id	=#{parentId,jdbcType=VARCHAR},
+  	years	=#{years,jdbcType=VARCHAR},
+  	area_id	= #{areaId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_user
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+</mapper>

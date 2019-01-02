@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingAddressDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingAddress" >
+	<id column="id" property="id"  />
+	 <result column="addTime" property="addTime"  />
+	 <result column="deleteStatus" property="deleteStatus"  />
+	 <result column="area_info" property="areaInfo"  />
+	 <result column="mobile" property="mobile"  />
+	 <result column="telephone" property="telephone"  />
+	 <result column="trueName" property="trueName"  />
+	 <result column="zip" property="zip"  />
+	 <result column="area_id" property="areaId"  />
+	 <result column="user_id" property="userId"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   id,
+   addTime,
+   deleteStatus,
+   area_info,
+   mobile,
+   telephone,
+   trueName,
+   zip,
+   area_id,
+   user_id
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_address
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_address
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_address
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="id != null and id != ''"> and  id =#{id,jdbcType=VARCHAR} </if>
+   <if test="addTime != null and addTime != ''"> and  addTime =#{addTime,jdbcType=VARCHAR} </if>
+   <if test="deleteStatus != null and deleteStatus != ''"> and  deleteStatus =#{deleteStatus,jdbcType=VARCHAR} </if>
+   <if test="areaInfo != null and areaInfo != ''"> and  area_info =#{areaInfo,jdbcType=VARCHAR} </if>
+   <if test="mobile != null and mobile != ''"> and  mobile =#{mobile,jdbcType=VARCHAR} </if>
+   <if test="telephone != null and telephone != ''"> and  telephone =#{telephone,jdbcType=VARCHAR} </if>
+   <if test="trueName != null and trueName != ''"> and  trueName =#{trueName,jdbcType=VARCHAR} </if>
+   <if test="zip != null and zip != ''"> and  zip =#{zip,jdbcType=VARCHAR} </if>
+   <if test="areaId != null and areaId != ''"> and  area_id =#{areaId,jdbcType=VARCHAR} </if>
+   <if test="userId != null and userId != ''"> and  user_id =#{userId,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_address 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_address
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingAddress" >
+    insert into shopping_address (
+   id,
+      addTime,
+      deleteStatus,
+      area_info,
+      mobile,
+      telephone,
+      trueName,
+      zip,
+      area_id,
+      user_id
+    )
+    values (
+ 	#{id,jdbcType=VARCHAR},
+ 	#{addTime,jdbcType=VARCHAR},
+ 	#{deleteStatus,jdbcType=VARCHAR},
+ 	#{areaInfo,jdbcType=VARCHAR},
+ 	#{mobile,jdbcType=VARCHAR},
+ 	#{telephone,jdbcType=VARCHAR},
+ 	#{trueName,jdbcType=VARCHAR},
+ 	#{zip,jdbcType=VARCHAR},
+ 	#{areaId,jdbcType=VARCHAR},
+#{userId,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingAddress" >
+    update shopping_address
+    set 
+  	id	=#{id,jdbcType=VARCHAR},
+  	addTime	=#{addTime,jdbcType=VARCHAR},
+  	deleteStatus	=#{deleteStatus,jdbcType=VARCHAR},
+  	area_info	=#{areaInfo,jdbcType=VARCHAR},
+  	mobile	=#{mobile,jdbcType=VARCHAR},
+  	telephone	=#{telephone,jdbcType=VARCHAR},
+  	trueName	=#{trueName,jdbcType=VARCHAR},
+  	zip	=#{zip,jdbcType=VARCHAR},
+  	area_id	=#{areaId,jdbcType=VARCHAR},
+  	user_id	= #{userId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_address
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	
+	<resultMap id="listByUseridResultMap" type="com.sanxia.market.dto.user.QueryAddressResponse" >
+	  <result column="id" property="address_id"  />
+	 <result column="area_name" property="area_name"  />
+	 <result column="trueName" property="trueName"  />
+	 <result column="mobile" property="mobile"  />
+	  <result column="telephone" property="telephone"  />
+	  <result column="zip" property="zip"  />
+	  <result column="area_info" property="area_info"  />
+	  <result column="user_id" property="user_id"  />
+	 </resultMap>
+	  <select id="listByUserid" parameterType="java.util.Map" resultMap="listByUseridResultMap">
+	 SELECT a.id,a.trueName,a.mobile,a.`area_info`,a.`telephone`,a.`zip`,a.`user_id`,CONCAT(d.`areaName`," ",c.`areaName`," ",b.`areaName`) AS area_name FROM `shopping_address`  a LEFT JOIN `shopping_area` b  ON a.`area_id`=b.`id` LEFT JOIN shopping_area c  ON b.`parent_id`=c.id  LEFT JOIN shopping_area d  ON c.`parent_id`=d.`id`
+	 WHERE   <![CDATA[ a.user_id = #{param1,jdbcType=VARCHAR}  ]]> and a.deleteStatus=0
+      </select>
+</mapper>

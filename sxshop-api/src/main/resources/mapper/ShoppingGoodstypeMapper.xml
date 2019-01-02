@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingGoodstypeDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingGoodstype" >
+	<id column="id" property="id"  />
+	 <result column="addTime" property="addTime"  />
+	 <result column="deleteStatus" property="deleteStatus"  />
+	 <result column="name" property="name"  />
+	 <result column="sequence" property="sequence"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   id,
+   addTime,
+   deleteStatus,
+   name,
+   sequence
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_goodstype
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_goodstype
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_goodstype
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="id != null and id != ''"> and  id =#{id,jdbcType=VARCHAR} </if>
+   <if test="addTime != null and addTime != ''"> and  addTime =#{addTime,jdbcType=VARCHAR} </if>
+   <if test="deleteStatus != null and deleteStatus != ''"> and  deleteStatus =#{deleteStatus,jdbcType=VARCHAR} </if>
+   <if test="name != null and name != ''"> and  name =#{name,jdbcType=VARCHAR} </if>
+   <if test="sequence != null and sequence != ''"> and  sequence =#{sequence,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_goodstype 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_goodstype
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingGoodstype" >
+    insert into shopping_goodstype (
+   id,
+      addTime,
+      deleteStatus,
+      name,
+      sequence
+    )
+    values (
+ 	#{id,jdbcType=VARCHAR},
+ 	#{addTime,jdbcType=VARCHAR},
+ 	#{deleteStatus,jdbcType=VARCHAR},
+ 	#{name,jdbcType=VARCHAR},
+#{sequence,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingGoodstype" >
+    update shopping_goodstype
+    set 
+  	id	=#{id,jdbcType=VARCHAR},
+  	addTime	=#{addTime,jdbcType=VARCHAR},
+  	deleteStatus	=#{deleteStatus,jdbcType=VARCHAR},
+  	name	=#{name,jdbcType=VARCHAR},
+  	sequence	= #{sequence,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_goodstype
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	     <resultMap id="queryGoodsClassTypeResultMap" type="com.sanxia.market.dto.goods.GoodsCalssTypeChildren" >
+	 <result column="child_name" property="child_name"  />
+	 <result column="child_id" property="child_id"  />
+	 </resultMap>
+	 
+	<sql id="queryGoodsClassType_sql">
+     <if test="goodsTypeId != null and goodsTypeId != ''"> and  a.id = #{goodsTypeId,jdbcType=VARCHAR} </if>
+    </sql>
+ <select id="queryGoodsClassTypeBrand" parameterType="java.util.Map" resultMap="queryGoodsClassTypeResultMap">
+		SELECT c.`name` AS child_name,c.`id` AS child_id FROM `shopping_goodstype` a LEFT JOIN `shopping_goodstype_brand` b ON a.`id`=b.type_id LEFT JOIN `shopping_goodsbrand` c ON b.brand_id=c.id  
+    <where>
+      <include refid="queryGoodsClassType_sql" />
+    </where>
+  <!--   <![CDATA[ order by a.addTime desc limit #{pageFirst}, #{pageSize}]]>  -->
+  </select>
+  
+   <select id="queryGoodsClassTypetypeProperty" parameterType="java.util.Map" resultMap="queryGoodsClassTypeResultMap">
+	   SELECT b.name AS child_id,b.value AS child_name FROM shopping_goodstype a LEFT JOIN `shopping_goodstypeproperty` b ON a.id=b.goodsType_id  
+    <where>
+      <include refid="queryGoodsClassType_sql" />
+    </where>
+  <!--   <![CDATA[ order by a.addTime desc limit #{pageFirst}, #{pageSize}]]>  -->
+  </select>
+  
+    <select id="queryGoodsClassTypetySpecproperty" parameterType="java.util.Map" resultMap="queryGoodsClassTypeResultMap">
+	  SELECT c.id AS child_id,c.name AS child_name FROM shopping_goodstype a LEFT JOIN `shopping_goodstype_spec` b ON a.`id`=b.type_id LEFT JOIN `shopping_goodsspecification` c ON b.spec_id=c.id 
+    <where>
+      <include refid="queryGoodsClassType_sql" />
+    </where>
+  <!--   <![CDATA[ order by a.addTime desc limit #{pageFirst}, #{pageSize}]]>  -->
+  </select>
+  
+  <sql id="queryGoodsClassTypetySpecpropertyChild_sql">
+     <if test="goodsTypeId != null and goodsTypeId != ''"> and  a.id = #{goodsTypeId,jdbcType=VARCHAR} </if>
+     <if test="spec_id != null and spec_id != ''"> and  c.id = #{spec_id,jdbcType=VARCHAR} </if>
+  </sql>
+   <select id="queryGoodsClassTypetySpecpropertyChild" parameterType="java.util.Map" resultMap="queryGoodsClassTypeResultMap">
+    SELECT d.id AS child_id ,d.value AS child_name FROM shopping_goodstype a LEFT JOIN `shopping_goodstype_spec` b ON a.`id`=b.type_id LEFT JOIN `shopping_goodsspecification` c ON b.spec_id=c.id LEFT JOIN `shopping_goodsspecproperty` d ON c.id=d.spec_id 
+    <where>
+      <include refid="queryGoodsClassTypetySpecpropertyChild_sql" />
+    </where>
+  <!--   <![CDATA[ order by a.addTime desc limit #{pageFirst}, #{pageSize}]]>  -->
+  </select>
+</mapper>

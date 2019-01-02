@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingPredepositLogDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingPredepositLog" >
+	<id column="id" property="id"  />
+	 <result column="addTime" property="addTime"  />
+	 <result column="deleteStatus" property="deleteStatus"  />
+	 <result column="pd_log_amount" property="pdLogAmount"  />
+	 <result column="pd_log_info" property="pdLogInfo"  />
+	 <result column="pd_op_type" property="pdOpType"  />
+	 <result column="pd_type" property="pdType"  />
+	 <result column="pd_log_admin_id" property="pdLogAdminId"  />
+	 <result column="pd_log_user_id" property="pdLogUserId"  />
+	 <result column="predeposit_id" property="predepositId"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   id,
+   addTime,
+   deleteStatus,
+   pd_log_amount,
+   pd_log_info,
+   pd_op_type,
+   pd_type,
+   pd_log_admin_id,
+   pd_log_user_id,
+   predeposit_id
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_predeposit_log
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_predeposit_log
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_predeposit_log
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="id != null and id != ''"> and  id =#{id,jdbcType=VARCHAR} </if>
+   <if test="addTime != null and addTime != ''"> and  addTime =#{addTime,jdbcType=VARCHAR} </if>
+   <if test="deleteStatus != null and deleteStatus != ''"> and  deleteStatus =#{deleteStatus,jdbcType=VARCHAR} </if>
+   <if test="pdLogAmount != null and pdLogAmount != ''"> and  pd_log_amount =#{pdLogAmount,jdbcType=VARCHAR} </if>
+   <if test="pdLogInfo != null and pdLogInfo != ''"> and  pd_log_info =#{pdLogInfo,jdbcType=VARCHAR} </if>
+   <if test="pdOpType != null and pdOpType != ''"> and  pd_op_type =#{pdOpType,jdbcType=VARCHAR} </if>
+   <if test="pdType != null and pdType != ''"> and  pd_type =#{pdType,jdbcType=VARCHAR} </if>
+   <if test="pdLogAdminId != null and pdLogAdminId != ''"> and  pd_log_admin_id =#{pdLogAdminId,jdbcType=VARCHAR} </if>
+   <if test="pdLogUserId != null and pdLogUserId != ''"> and  pd_log_user_id =#{pdLogUserId,jdbcType=VARCHAR} </if>
+   <if test="predepositId != null and predepositId != ''"> and  predeposit_id =#{predepositId,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_predeposit_log 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_predeposit_log
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingPredepositLog" useGeneratedKeys="true" keyProperty="id" keyColumn="id" >
+    insert into shopping_predeposit_log (
+   id,
+      addTime,
+      deleteStatus,
+      pd_log_amount,
+      pd_log_info,
+      pd_op_type,
+      pd_type,
+      pd_log_admin_id,
+      pd_log_user_id,
+      predeposit_id
+    )
+    values (
+ 	#{id,jdbcType=VARCHAR},
+ 	#{addTime,jdbcType=VARCHAR},
+ 	#{deleteStatus,jdbcType=VARCHAR},
+ 	#{pdLogAmount,jdbcType=VARCHAR},
+ 	#{pdLogInfo,jdbcType=VARCHAR},
+ 	#{pdOpType,jdbcType=VARCHAR},
+ 	#{pdType,jdbcType=VARCHAR},
+ 	#{pdLogAdminId,jdbcType=VARCHAR},
+ 	#{pdLogUserId,jdbcType=VARCHAR},
+#{predepositId,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingPredepositLog" >
+    update shopping_predeposit_log
+    set 
+  	id	=#{id,jdbcType=VARCHAR},
+  	addTime	=#{addTime,jdbcType=VARCHAR},
+  	deleteStatus	=#{deleteStatus,jdbcType=VARCHAR},
+  	pd_log_amount	=#{pdLogAmount,jdbcType=VARCHAR},
+  	pd_log_info	=#{pdLogInfo,jdbcType=VARCHAR},
+  	pd_op_type	=#{pdOpType,jdbcType=VARCHAR},
+  	pd_type	=#{pdType,jdbcType=VARCHAR},
+  	pd_log_admin_id	=#{pdLogAdminId,jdbcType=VARCHAR},
+  	pd_log_user_id	=#{pdLogUserId,jdbcType=VARCHAR},
+  	predeposit_id	= #{predepositId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_predeposit_log
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+</mapper>

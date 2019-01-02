@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingGoodsSpecDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingGoodsSpec" >
+	 <result column="goods_id" property="goodsId"  />
+	 <result column="spec_id" property="specId"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   goods_id,
+   spec_id
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_goods_spec
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_goods_spec
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_goods_spec
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="goodsId != null and goodsId != ''"> and  goods_id =#{goodsId,jdbcType=VARCHAR} </if>
+   <if test="specId != null and specId != ''"> and  spec_id =#{specId,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_goods_spec 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_goods_spec
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingGoodsSpec" >
+    insert into shopping_goods_spec (
+   goods_id,
+      spec_id
+    )
+    values (
+ 	#{goodsId,jdbcType=VARCHAR},
+#{specId,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingGoodsSpec" >
+    update shopping_goods_spec
+    set 
+  	goods_id	=#{goodsId,jdbcType=VARCHAR},
+  	spec_id	= #{specId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_goods_spec
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	
+	 <resultMap id="GoodsSpecificationResultMap" type="com.sanxia.market.dto.index.GoodsSpecificationResponse" >
+	 <result column="spec_id" property="spec_id"  />
+	 <result column="name" property="name"  />
+	 <result column="ssquence" property="ssquence"  />
+	 </resultMap>
+	  <select id="goodsspecificationList" parameterType="java.util.Map" resultMap="GoodsSpecificationResultMap">
+		select m.spec_id,m.name,m.ssquence from (
+		SELECT a.goods_id,b.sequence AS psequence,b.spec_id,b.value,c.name,c.sequence AS ssquence FROM `shopping_goods_spec` a LEFT JOIN `shopping_goodsspecproperty` b ON a.spec_id=b.id  LEFT JOIN `shopping_goodsspecification` c ON b.spec_id=c.id
+		 WHERE    <![CDATA[ a.goods_id = #{param1,jdbcType=VARCHAR}  ]]> 
+		)m group by m.spec_id order by m.ssquence asc
+      </select>
+      
+      
+       <resultMap id="goodsspecpropertyResultMap" type="com.sanxia.market.dto.index.GoodsSpecpropertyResponse" >
+	 <result column="spec_id" property="spec_id"  />
+	 <result column="name" property="name"  />
+	 <result column="psequence" property="psequence"  />
+	  <result column="value" property="value"  />
+	  <result column="property_id" property="property_id"  />
+	 </resultMap>
+	  <select id="goodsspecpropertyList" parameterType="java.util.Map" resultMap="goodsspecpropertyResultMap">
+		SELECT m.spec_id,m.name,m.psequence,m.value,m.property_id FROM (
+		SELECT a.goods_id,b.id as property_id,b.sequence AS psequence,b.spec_id,b.value,c.name,c.sequence AS ssquence FROM `shopping_goods_spec` a LEFT JOIN `shopping_goodsspecproperty` b ON a.spec_id=b.id  LEFT JOIN `shopping_goodsspecification` c ON b.spec_id=c.id
+		 WHERE  <![CDATA[ a.goods_id = #{param1,jdbcType=VARCHAR}  ]]>
+		)m WHERE  <![CDATA[ m.spec_id = #{param2,jdbcType=VARCHAR}  ]]> ORDER BY m.psequence ASC
+      </select>
+</mapper>

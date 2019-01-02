@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingFavoriteDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingFavorite" >
+	<id column="id" property="id"  />
+	 <result column="addTime" property="addTime"  />
+	 <result column="deleteStatus" property="deleteStatus"  />
+	 <result column="type" property="type"  />
+	 <result column="goods_id" property="goodsId"  />
+	 <result column="store_id" property="storeId"  />
+	 <result column="user_id" property="userId"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   id,
+   addTime,
+   deleteStatus,
+   type,
+   goods_id,
+   store_id,
+   user_id
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_favorite
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_favorite
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_favorite
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="id != null and id != ''"> and  id =#{id,jdbcType=VARCHAR} </if>
+   <if test="addTime != null and addTime != ''"> and  addTime =#{addTime,jdbcType=VARCHAR} </if>
+   <if test="deleteStatus != null and deleteStatus != ''"> and  deleteStatus =#{deleteStatus,jdbcType=VARCHAR} </if>
+   <if test="type != null and type != ''"> and  type =#{type,jdbcType=VARCHAR} </if>
+   <if test="goodsId != null and goodsId != ''"> and  goods_id =#{goodsId,jdbcType=VARCHAR} </if>
+   <if test="storeId != null and storeId != ''"> and  store_id =#{storeId,jdbcType=VARCHAR} </if>
+   <if test="userId != null and userId != ''"> and  user_id =#{userId,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_favorite 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_favorite
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingFavorite" >
+    insert into shopping_favorite (
+   id,
+      addTime,
+      deleteStatus,
+      type,
+      goods_id,
+      store_id,
+      user_id
+    )
+    values (
+ 	#{id,jdbcType=VARCHAR},
+ 	#{addTime,jdbcType=VARCHAR},
+ 	#{deleteStatus,jdbcType=VARCHAR},
+ 	#{type,jdbcType=VARCHAR},
+ 	#{goodsId,jdbcType=VARCHAR},
+ 	#{storeId,jdbcType=VARCHAR},
+#{userId,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingFavorite" >
+    update shopping_favorite
+    set 
+  	id	=#{id,jdbcType=VARCHAR},
+  	addTime	=#{addTime,jdbcType=VARCHAR},
+  	deleteStatus	=#{deleteStatus,jdbcType=VARCHAR},
+  	type	=#{type,jdbcType=VARCHAR},
+  	goods_id	=#{goodsId,jdbcType=VARCHAR},
+  	store_id	=#{storeId,jdbcType=VARCHAR},
+  	user_id	= #{userId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_favorite
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	
+	<resultMap id="listByQueryFavoriteResultMap" type="com.sanxia.market.dto.user.QueryFavoriteResponse" >
+	 <id column="id" property="id"  />
+	 <result column="user_id" property="user_id"  />
+	 <result column="type" property="type"  />
+	 <result column="goods_name" property="goods_name"  />
+	 <result column="store_name" property="store_name"  />
+	 <result column="addTime" property="addTime"  /> 
+	 <result column="goods_main_photo_path" property="goods_main_photo_path"  />
+	 <result column="store_logo_path" property="store_logo_path"  />
+	 </resultMap>
+	 
+	<sql id="listByQueryFavorite_sql">
+     <if test="type != null and type != ''"> and <![CDATA[ a.type = #{type,jdbcType=VARCHAR} ]]>  </if>
+     <if test="userId != null and userId != ''"> and <![CDATA[ a.user_id = #{userId,jdbcType=VARCHAR} ]]> </if>
+    </sql>
+	  <select id="listByQueryFavorite" parameterType="java.util.Map" resultMap="listByQueryFavoriteResultMap">
+		        SELECT a.`id`,a.`user_id`,a.`type`,a.`addTime`,b.`goods_name` AS goods_name,c.`store_name` AS store_name ,
+		CONCAT(d.`path`,'/',d.`name`) AS goods_main_photo_path , CONCAT(e.`path`,'/',e.`name`) AS store_logo_path
+		FROM shopping_favorite a LEFT JOIN `shopping_goods` b ON a.`goods_id`=b.`id` LEFT JOIN `shopping_store` c ON a.`store_id`=c.`id`
+		LEFT JOIN `shopping_accessory` d ON b.`goods_main_photo_id`=d.`id` LEFT JOIN shopping_accessory e ON c.`store_logo_id`=e.`id`
+    <where>
+      <include refid="listByQueryFavorite_sql" />
+    </where>
+    <![CDATA[ order by a.addTime desc limit #{pageFirst}, #{pageSize}]]> 
+  </select>
+  
+    <select id="listByQueryFavoriteCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from (
+	    SELECT a.`id`,a.`user_id`,a.`type`,a.`addTime`,b.`goods_name` AS goods_name,c.`store_name` AS store_name ,
+	CONCAT(d.`path`,'/',d.`name`) AS goods_main_photo_path , CONCAT(e.`path`,'/',e.`name`) AS store_logo_path
+	FROM shopping_favorite a LEFT JOIN `shopping_goods` b ON a.`goods_id`=b.`id` LEFT JOIN `shopping_store` c ON a.`store_id`=c.`id`
+	LEFT JOIN `shopping_accessory` d ON b.`goods_main_photo_id`=d.`id` LEFT JOIN shopping_accessory e ON c.`store_logo_id`=e.`id`
+    <where>
+      <include refid="listByQueryFavorite_sql" />
+    </where>
+    ) m
+  </select>
+</mapper>

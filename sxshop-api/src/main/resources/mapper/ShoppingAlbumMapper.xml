@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingAlbumDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingAlbum" >
+	<id column="id" property="id"  />
+	 <result column="addTime" property="addTime"  />
+	 <result column="deleteStatus" property="deleteStatus"  />
+	 <result column="alblum_info" property="alblumInfo"  />
+	 <result column="album_default" property="albumDefault"  />
+	 <result column="album_name" property="albumName"  />
+	 <result column="album_sequence" property="albumSequence"  />
+	 <result column="album_cover_id" property="albumCoverId"  />
+	 <result column="user_id" property="userId"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   id,
+   addTime,
+   deleteStatus,
+   alblum_info,
+   album_default,
+   album_name,
+   album_sequence,
+   album_cover_id,
+   user_id
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_album
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_album
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_album
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="id != null and id != ''"> and  id =#{id,jdbcType=VARCHAR} </if>
+   <if test="addTime != null and addTime != ''"> and  addTime =#{addTime,jdbcType=VARCHAR} </if>
+   <if test="deleteStatus != null and deleteStatus != ''"> and  deleteStatus =#{deleteStatus,jdbcType=VARCHAR} </if>
+   <if test="alblumInfo != null and alblumInfo != ''"> and  alblum_info =#{alblumInfo,jdbcType=VARCHAR} </if>
+   <if test="albumDefault != null and albumDefault != ''"> and  album_default =#{albumDefault,jdbcType=VARCHAR} </if>
+   <if test="albumName != null and albumName != ''"> and  album_name =#{albumName,jdbcType=VARCHAR} </if>
+   <if test="albumSequence != null and albumSequence != ''"> and  album_sequence =#{albumSequence,jdbcType=VARCHAR} </if>
+   <if test="albumCoverId != null and albumCoverId != ''"> and  album_cover_id =#{albumCoverId,jdbcType=VARCHAR} </if>
+   <if test="userId != null and userId != ''"> and  user_id =#{userId,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_album 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_album
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingAlbum" >
+    insert into shopping_album (
+   id,
+      addTime,
+      deleteStatus,
+      alblum_info,
+      album_default,
+      album_name,
+      album_sequence,
+      album_cover_id,
+      user_id
+    )
+    values (
+ 	#{id,jdbcType=VARCHAR},
+ 	#{addTime,jdbcType=VARCHAR},
+ 	#{deleteStatus,jdbcType=VARCHAR},
+ 	#{alblumInfo,jdbcType=VARCHAR},
+ 	#{albumDefault,jdbcType=VARCHAR},
+ 	#{albumName,jdbcType=VARCHAR},
+ 	#{albumSequence,jdbcType=VARCHAR},
+ 	#{albumCoverId,jdbcType=VARCHAR},
+#{userId,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingAlbum" >
+    update shopping_album
+    set 
+  	id	=#{id,jdbcType=VARCHAR},
+  	addTime	=#{addTime,jdbcType=VARCHAR},
+  	deleteStatus	=#{deleteStatus,jdbcType=VARCHAR},
+  	alblum_info	=#{alblumInfo,jdbcType=VARCHAR},
+  	album_default	=#{albumDefault,jdbcType=VARCHAR},
+  	album_name	=#{albumName,jdbcType=VARCHAR},
+  	album_sequence	=#{albumSequence,jdbcType=VARCHAR},
+  	album_cover_id	=#{albumCoverId,jdbcType=VARCHAR},
+  	user_id	= #{userId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_album
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+</mapper>

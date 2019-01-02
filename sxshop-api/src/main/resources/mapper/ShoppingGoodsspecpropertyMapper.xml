@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingGoodsspecpropertyDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingGoodsspecproperty" >
+	<id column="id" property="id"  />
+	 <result column="addTime" property="addTime"  />
+	 <result column="deleteStatus" property="deleteStatus"  />
+	 <result column="sequence" property="sequence"  />
+	 <result column="value" property="value"  />
+	 <result column="spec_id" property="specId"  />
+	 <result column="specImage_id" property="specImageId"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   id,
+   addTime,
+   deleteStatus,
+   sequence,
+   value,
+   spec_id,
+   specImage_id
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_goodsspecproperty
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_goodsspecproperty
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_goodsspecproperty
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="id != null and id != ''"> and  id =#{id,jdbcType=VARCHAR} </if>
+   <if test="addTime != null and addTime != ''"> and  addTime =#{addTime,jdbcType=VARCHAR} </if>
+   <if test="deleteStatus != null and deleteStatus != ''"> and  deleteStatus =#{deleteStatus,jdbcType=VARCHAR} </if>
+   <if test="sequence != null and sequence != ''"> and  sequence =#{sequence,jdbcType=VARCHAR} </if>
+   <if test="value != null and value != ''"> and  value =#{value,jdbcType=VARCHAR} </if>
+   <if test="specId != null and specId != ''"> and  spec_id =#{specId,jdbcType=VARCHAR} </if>
+   <if test="specImageId != null and specImageId != ''"> and  specImage_id =#{specImageId,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_goodsspecproperty 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_goodsspecproperty
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingGoodsspecproperty" >
+    insert into shopping_goodsspecproperty (
+   id,
+      addTime,
+      deleteStatus,
+      sequence,
+      value,
+      spec_id,
+      specImage_id
+    )
+    values (
+ 	#{id,jdbcType=VARCHAR},
+ 	#{addTime,jdbcType=VARCHAR},
+ 	#{deleteStatus,jdbcType=VARCHAR},
+ 	#{sequence,jdbcType=VARCHAR},
+ 	#{value,jdbcType=VARCHAR},
+ 	#{specId,jdbcType=VARCHAR},
+#{specImageId,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingGoodsspecproperty" >
+    update shopping_goodsspecproperty
+    set 
+  	id	=#{id,jdbcType=VARCHAR},
+  	addTime	=#{addTime,jdbcType=VARCHAR},
+  	deleteStatus	=#{deleteStatus,jdbcType=VARCHAR},
+  	sequence	=#{sequence,jdbcType=VARCHAR},
+  	value	=#{value,jdbcType=VARCHAR},
+  	spec_id	=#{specId,jdbcType=VARCHAR},
+  	specImage_id	= #{specImageId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_goodsspecproperty
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+</mapper>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingAdvertDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingAdvert" >
+	<id column="id" property="id"  />
+	 <result column="addTime" property="addTime"  />
+	 <result column="deleteStatus" property="deleteStatus"  />
+	 <result column="ad_begin_time" property="adBeginTime"  />
+	 <result column="ad_click_num" property="adClickNum"  />
+	 <result column="ad_end_time" property="adEndTime"  />
+	 <result column="ad_gold" property="adGold"  />
+	 <result column="ad_slide_sequence" property="adSlideSequence"  />
+	 <result column="ad_status" property="adStatus"  />
+	 <result column="ad_text" property="adText"  />
+	 <result column="ad_title" property="adTitle"  />
+	 <result column="ad_url" property="adUrl"  />
+	 <result column="ad_acc_id" property="adAccId"  />
+	 <result column="ad_ap_id" property="adApId"  />
+	 <result column="ad_user_id" property="adUserId"  />
+	 <result column="ad_url_type" property="adUrlType"  />
+	 <result column="ad_store_id" property="adStoreId"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   id,
+   addTime,
+   deleteStatus,
+   ad_begin_time,
+   ad_click_num,
+   ad_end_time,
+   ad_gold,
+   ad_slide_sequence,
+   ad_status,
+   ad_text,
+   ad_title,
+   ad_url,
+   ad_acc_id,
+   ad_ap_id,
+   ad_user_id,
+   ad_url_type,
+   ad_store_id
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_advert
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_advert
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_advert
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="id != null and id != ''"> and  id =#{id,jdbcType=VARCHAR} </if>
+   <if test="addTime != null and addTime != ''"> and  addTime =#{addTime,jdbcType=VARCHAR} </if>
+   <if test="deleteStatus != null and deleteStatus != ''"> and  deleteStatus =#{deleteStatus,jdbcType=VARCHAR} </if>
+   <if test="adBeginTime != null and adBeginTime != ''"> and  ad_begin_time =#{adBeginTime,jdbcType=VARCHAR} </if>
+   <if test="adClickNum != null and adClickNum != ''"> and  ad_click_num =#{adClickNum,jdbcType=VARCHAR} </if>
+   <if test="adEndTime != null and adEndTime != ''"> and  ad_end_time =#{adEndTime,jdbcType=VARCHAR} </if>
+   <if test="adGold != null and adGold != ''"> and  ad_gold =#{adGold,jdbcType=VARCHAR} </if>
+   <if test="adSlideSequence != null and adSlideSequence != ''"> and  ad_slide_sequence =#{adSlideSequence,jdbcType=VARCHAR} </if>
+   <if test="adStatus != null and adStatus != ''"> and  ad_status =#{adStatus,jdbcType=VARCHAR} </if>
+   <if test="adText != null and adText != ''"> and  ad_text =#{adText,jdbcType=VARCHAR} </if>
+   <if test="adTitle != null and adTitle != ''"> and  ad_title =#{adTitle,jdbcType=VARCHAR} </if>
+   <if test="adUrl != null and adUrl != ''"> and  ad_url =#{adUrl,jdbcType=VARCHAR} </if>
+   <if test="adAccId != null and adAccId != ''"> and  ad_acc_id =#{adAccId,jdbcType=VARCHAR} </if>
+   <if test="adApId != null and adApId != ''"> and  ad_ap_id =#{adApId,jdbcType=VARCHAR} </if>
+   <if test="adUserId != null and adUserId != ''"> and  ad_user_id =#{adUserId,jdbcType=VARCHAR} </if>
+   <if test="adUrlType != null and adUrlType != ''"> and  ad_url_type =#{adUrlType,jdbcType=VARCHAR} </if>
+   <if test="adStoreId != null and adStoreId != ''"> and  ad_store_id =#{adStoreId,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_advert 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_advert
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingAdvert" >
+    insert into shopping_advert (
+   id,
+      addTime,
+      deleteStatus,
+      ad_begin_time,
+      ad_click_num,
+      ad_end_time,
+      ad_gold,
+      ad_slide_sequence,
+      ad_status,
+      ad_text,
+      ad_title,
+      ad_url,
+      ad_acc_id,
+      ad_ap_id,
+      ad_user_id,
+      ad_url_type,
+      ad_store_id
+    )
+    values (
+ 	#{id,jdbcType=VARCHAR},
+ 	#{addTime,jdbcType=VARCHAR},
+ 	#{deleteStatus,jdbcType=VARCHAR},
+ 	#{adBeginTime,jdbcType=VARCHAR},
+ 	#{adClickNum,jdbcType=VARCHAR},
+ 	#{adEndTime,jdbcType=VARCHAR},
+ 	#{adGold,jdbcType=VARCHAR},
+ 	#{adSlideSequence,jdbcType=VARCHAR},
+ 	#{adStatus,jdbcType=VARCHAR},
+ 	#{adText,jdbcType=VARCHAR},
+ 	#{adTitle,jdbcType=VARCHAR},
+ 	#{adUrl,jdbcType=VARCHAR},
+ 	#{adAccId,jdbcType=VARCHAR},
+ 	#{adApId,jdbcType=VARCHAR},
+ 	#{adUserId,jdbcType=VARCHAR},
+ 	#{adUrlType,jdbcType=VARCHAR},
+#{adStoreId,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingAdvert" >
+    update shopping_advert
+    set 
+  	id	=#{id,jdbcType=VARCHAR},
+  	addTime	=#{addTime,jdbcType=VARCHAR},
+  	deleteStatus	=#{deleteStatus,jdbcType=VARCHAR},
+  	ad_begin_time	=#{adBeginTime,jdbcType=VARCHAR},
+  	ad_click_num	=#{adClickNum,jdbcType=VARCHAR},
+  	ad_end_time	=#{adEndTime,jdbcType=VARCHAR},
+  	ad_gold	=#{adGold,jdbcType=VARCHAR},
+  	ad_slide_sequence	=#{adSlideSequence,jdbcType=VARCHAR},
+  	ad_status	=#{adStatus,jdbcType=VARCHAR},
+  	ad_text	=#{adText,jdbcType=VARCHAR},
+  	ad_title	=#{adTitle,jdbcType=VARCHAR},
+  	ad_url	=#{adUrl,jdbcType=VARCHAR},
+  	ad_acc_id	=#{adAccId,jdbcType=VARCHAR},
+  	ad_ap_id	=#{adApId,jdbcType=VARCHAR},
+  	ad_user_id	=#{adUserId,jdbcType=VARCHAR},
+  	ad_url_type	=#{adUrlType,jdbcType=VARCHAR},
+  	ad_store_id	= #{adStoreId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_advert
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	 <resultMap id="wheelAdResultMap" type="com.sanxia.market.dto.index.WheelAdvResponse" >
+	<id column="id" property="id"  />
+	 <result column="ad_store_id" property="ad_store_id"  />
+	 <result column="ad_url_type" property="ad_url_type"  />
+	 <result column="ad_url" property="ad_url"  />
+	 <result column="ad_img_path" property="ad_img_path"  />
+	 </resultMap>
+	 
+	<sql id="wheelAdv_sql">
+     <if test="ad_ap_id != null and ad_ap_id != ''"> and  a.ad_ap_id =#{ad_ap_id,jdbcType=VARCHAR} </if>
+     <if test="ad_store_id != null and ad_store_id != ''"> and  a.ad_store_id =#{ad_store_id,jdbcType=VARCHAR} </if>
+    </sql>
+	  <select id="listwheelAdv" parameterType="java.util.Map" resultMap="wheelAdResultMap">
+    select a.ad_store_id ,a.ad_url_type,a.ad_url,concat(b.`path`,'/',b.`name`) as ad_img_path FROM `shopping_advert` a LEFT JOIN `shopping_accessory` b ON a.`ad_acc_id`=b.id
+    <where>
+      <include refid="wheelAdv_sql" />
+      and a.deleteStatus=0 and a.ad_status=1
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+</mapper>

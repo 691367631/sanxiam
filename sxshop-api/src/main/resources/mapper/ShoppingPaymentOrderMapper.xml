@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingPaymentOrderDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingPaymentOrder" >
+	<id column="payment_order_no" property="paymentOrderNo"  />
+	 <result column="order_ids" property="orderIds"  />
+	 <result column="total_price" property="totalPrice"  />
+	 <result column="pay_status" property="payStatus"  />
+	 <result column="third_party_no" property="thirdPartyNo"  />
+	 <result column="user_id" property="userId"  />
+	 <result column="mark" property="mark"  />
+	 <result column="add_time" property="addTime"  />
+	 <result column="pay_order_desc" property="payOrderDesc"  />
+	 <result column="reserve1" property="reserve1"  />
+	 <result column="reserve2" property="reserve2"  />
+	 <result column="reserve3" property="reserve3"  />
+	 <result column="reserve4" property="reserve4"  />
+	 <result column="reserve5" property="reserve5"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   payment_order_no,
+   order_ids,
+   total_price,
+   pay_status,
+   third_party_no,
+   user_id,
+   mark,
+   add_time,
+   pay_order_desc,
+   reserve1,
+   reserve2,
+   reserve3,
+   reserve4,
+   reserve5
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_payment_order
+ 	where  payment_order_no = #{paymentOrderNo,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_payment_order
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_payment_order
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="paymentOrderNo != null and paymentOrderNo != ''"> and  payment_order_no =#{paymentOrderNo,jdbcType=VARCHAR} </if>
+   <if test="orderIds != null and orderIds != ''"> and  order_ids =#{orderIds,jdbcType=VARCHAR} </if>
+   <if test="totalPrice != null and totalPrice != ''"> and  total_price =#{totalPrice,jdbcType=VARCHAR} </if>
+   <if test="payStatus != null and payStatus != ''"> and  pay_status =#{payStatus,jdbcType=VARCHAR} </if>
+   <if test="thirdPartyNo != null and thirdPartyNo != ''"> and  third_party_no =#{thirdPartyNo,jdbcType=VARCHAR} </if>
+   <if test="userId != null and userId != ''"> and  user_id =#{userId,jdbcType=VARCHAR} </if>
+   <if test="mark != null and mark != ''"> and  mark =#{mark,jdbcType=VARCHAR} </if>
+   <if test="addTime != null and addTime != ''"> and  add_time =#{addTime,jdbcType=VARCHAR} </if>
+   <if test="payOrderDesc != null and payOrderDesc != ''"> and  pay_order_desc =#{payOrderDesc,jdbcType=VARCHAR} </if>
+   <if test="reserve1 != null and reserve1 != ''"> and  reserve1 =#{reserve1,jdbcType=VARCHAR} </if>
+   <if test="reserve2 != null and reserve2 != ''"> and  reserve2 =#{reserve2,jdbcType=VARCHAR} </if>
+   <if test="reserve3 != null and reserve3 != ''"> and  reserve3 =#{reserve3,jdbcType=VARCHAR} </if>
+   <if test="reserve4 != null and reserve4 != ''"> and  reserve4 =#{reserve4,jdbcType=VARCHAR} </if>
+   <if test="reserve5 != null and reserve5 != ''"> and  reserve5 =#{reserve5,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_payment_order 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_payment_order
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingPaymentOrder" >
+    insert into shopping_payment_order (
+   payment_order_no,
+      order_ids,
+      total_price,
+      pay_status,
+      third_party_no,
+      user_id,
+      mark,
+      add_time,
+      pay_order_desc,
+      reserve1,
+      reserve2,
+      reserve3,
+      reserve4,
+      reserve5
+    )
+    values (
+ 	#{paymentOrderNo,jdbcType=VARCHAR},
+ 	#{orderIds,jdbcType=VARCHAR},
+ 	#{totalPrice,jdbcType=VARCHAR},
+ 	#{payStatus,jdbcType=VARCHAR},
+ 	#{thirdPartyNo,jdbcType=VARCHAR},
+ 	#{userId,jdbcType=VARCHAR},
+ 	#{mark,jdbcType=VARCHAR},
+ 	#{addTime,jdbcType=VARCHAR},
+ 	#{payOrderDesc,jdbcType=VARCHAR},
+ 	#{reserve1,jdbcType=VARCHAR},
+ 	#{reserve2,jdbcType=VARCHAR},
+ 	#{reserve3,jdbcType=VARCHAR},
+ 	#{reserve4,jdbcType=VARCHAR},
+#{reserve5,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingPaymentOrder" >
+    update shopping_payment_order
+    set 
+  	payment_order_no	=#{paymentOrderNo,jdbcType=VARCHAR},
+  	order_ids	=#{orderIds,jdbcType=VARCHAR},
+  	total_price	=#{totalPrice,jdbcType=VARCHAR},
+  	pay_status	=#{payStatus,jdbcType=VARCHAR},
+  	third_party_no	=#{thirdPartyNo,jdbcType=VARCHAR},
+  	user_id	=#{userId,jdbcType=VARCHAR},
+  	mark	=#{mark,jdbcType=VARCHAR},
+  	add_time	=#{addTime,jdbcType=VARCHAR},
+  	pay_order_desc	=#{payOrderDesc,jdbcType=VARCHAR},
+  	reserve1	=#{reserve1,jdbcType=VARCHAR},
+  	reserve2	=#{reserve2,jdbcType=VARCHAR},
+  	reserve3	=#{reserve3,jdbcType=VARCHAR},
+  	reserve4	=#{reserve4,jdbcType=VARCHAR},
+  	reserve5	= #{reserve5,jdbcType=VARCHAR}
+    where payment_order_no = #{paymentOrderNo,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_payment_order
+		where  payment_order_no = #{paymentOrderNo,jdbcType=VARCHAR}
+	</delete>
+</mapper>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingAreaDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingArea" >
+	<id column="id" property="id"  />
+	 <result column="addTime" property="addTime"  />
+	 <result column="deleteStatus" property="deleteStatus"  />
+	 <result column="areaName" property="areaName"  />
+	 <result column="level" property="level"  />
+	 <result column="sequence" property="sequence"  />
+	 <result column="parent_id" property="parentId"  />
+	 <result column="common" property="common"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   id,
+   addTime,
+   deleteStatus,
+   areaName,
+   level,
+   sequence,
+   parent_id,
+   common
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_area
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_area
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_area
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="id != null and id != ''"> and  id =#{id,jdbcType=VARCHAR} </if>
+   <if test="addTime != null and addTime != ''"> and  addTime =#{addTime,jdbcType=VARCHAR} </if>
+   <if test="deleteStatus != null and deleteStatus != ''"> and  deleteStatus =#{deleteStatus,jdbcType=VARCHAR} </if>
+   <if test="areaName != null and areaName != ''"> and  areaName =#{areaName,jdbcType=VARCHAR} </if>
+   <if test="level != null and level != ''"> and  level =#{level,jdbcType=VARCHAR} </if>
+   <if test="sequence != null and sequence != ''"> and  sequence =#{sequence,jdbcType=VARCHAR} </if>
+   <if test="parentId != null and parentId != ''"> and  parent_id =#{parentId,jdbcType=VARCHAR} </if>
+   <if test="common != null and common != ''"> and  common =#{common,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_area 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_area
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingArea" >
+    insert into shopping_area (
+   id,
+      addTime,
+      deleteStatus,
+      areaName,
+      level,
+      sequence,
+      parent_id,
+      common
+    )
+    values (
+ 	#{id,jdbcType=VARCHAR},
+ 	#{addTime,jdbcType=VARCHAR},
+ 	#{deleteStatus,jdbcType=VARCHAR},
+ 	#{areaName,jdbcType=VARCHAR},
+ 	#{level,jdbcType=VARCHAR},
+ 	#{sequence,jdbcType=VARCHAR},
+ 	#{parentId,jdbcType=VARCHAR},
+#{common,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingArea" >
+    update shopping_area
+    set 
+  	id	=#{id,jdbcType=VARCHAR},
+  	addTime	=#{addTime,jdbcType=VARCHAR},
+  	deleteStatus	=#{deleteStatus,jdbcType=VARCHAR},
+  	areaName	=#{areaName,jdbcType=VARCHAR},
+  	level	=#{level,jdbcType=VARCHAR},
+  	sequence	=#{sequence,jdbcType=VARCHAR},
+  	parent_id	=#{parentId,jdbcType=VARCHAR},
+  	common	= #{common,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_area
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	
+	 <resultMap id="listResultMap" type="com.sanxia.market.dto.util.QueryAreaResponse" >
+	 <id column="id" property="area_id"  />
+	 <result column="areaName" property="areaName"  />
+	 <result column="sequence" property="sequence"  />
+	 </resultMap>
+	 
+	<sql id="list_sql">
+    <!--  <if test="gc_id != null and gc_id != ''"> and  a.gc_id in 
+     <foreach collection="gc_id" index="index" item="item" open="(" separator="," close=")">  
+            #{item}  
+        </foreach>
+     </if> -->
+     <if test="level != null and level != ''"> and  level = #{level,jdbcType=VARCHAR} </if>
+     <if test="parent_id != null and parent_id != ''"> and  parent_id = #{parent_id,jdbcType=VARCHAR} </if>
+     <if test="common != null and common != ''"> and  common = #{common,jdbcType=VARCHAR} </if>
+    </sql>
+	  <select id="listByMap" parameterType="java.util.Map" resultMap="listResultMap">
+     SELECT id,areaName,sequence FROM shopping_area
+    <where>
+      <include refid="list_sql" />
+    </where>
+<!--     <![CDATA[ order by a.goods_serial asc limit #{pageFirst}, #{pageSize}]]>  -->
+  </select>
+</mapper>

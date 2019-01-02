@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingGoodsclassDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingGoodsclass" >
+	<id column="id" property="id"  />
+	 <result column="addTime" property="addTime"  />
+	 <result column="deleteStatus" property="deleteStatus"  />
+	 <result column="className" property="className"  />
+	 <result column="display" property="display"  />
+	 <result column="level" property="level"  />
+	 <result column="recommend" property="recommend"  />
+	 <result column="sequence" property="sequence"  />
+	 <result column="goodsType_id" property="goodsTypeId"  />
+	 <result column="parent_id" property="parentId"  />
+	 <result column="seo_description" property="seoDescription"  />
+	 <result column="seo_keywords" property="seoKeywords"  />
+	 <result column="icon_sys" property="iconSys"  />
+	 <result column="icon_type" property="iconType"  />
+	 <result column="icon_acc_id" property="iconAccId"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   id,
+   addTime,
+   deleteStatus,
+   className,
+   display,
+   level,
+   recommend,
+   sequence,
+   goodsType_id,
+   parent_id,
+   seo_description,
+   seo_keywords,
+   icon_sys,
+   icon_type,
+   icon_acc_id
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_goodsclass
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_goodsclass
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_goodsclass
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="id != null and id != ''"> and  id =#{id,jdbcType=VARCHAR} </if>
+   <if test="addTime != null and addTime != ''"> and  addTime =#{addTime,jdbcType=VARCHAR} </if>
+   <if test="deleteStatus != null and deleteStatus != ''"> and  deleteStatus =#{deleteStatus,jdbcType=VARCHAR} </if>
+   <if test="className != null and className != ''"> and  className =#{className,jdbcType=VARCHAR} </if>
+   <if test="display != null and display != ''"> and  display =#{display,jdbcType=VARCHAR} </if>
+   <if test="level != null and level != ''"> and  level =#{level,jdbcType=VARCHAR} </if>
+   <if test="recommend != null and recommend != ''"> and  recommend =#{recommend,jdbcType=VARCHAR} </if>
+   <if test="sequence != null and sequence != ''"> and  sequence =#{sequence,jdbcType=VARCHAR} </if>
+   <if test="goodsTypeId != null and goodsTypeId != ''"> and  goodsType_id =#{goodsTypeId,jdbcType=VARCHAR} </if>
+   <if test="parentId != null and parentId != ''"> and  parent_id =#{parentId,jdbcType=VARCHAR} </if>
+   <if test="seoDescription != null and seoDescription != ''"> and  seo_description =#{seoDescription,jdbcType=VARCHAR} </if>
+   <if test="seoKeywords != null and seoKeywords != ''"> and  seo_keywords =#{seoKeywords,jdbcType=VARCHAR} </if>
+   <if test="iconSys != null and iconSys != ''"> and  icon_sys =#{iconSys,jdbcType=VARCHAR} </if>
+   <if test="iconType != null and iconType != ''"> and  icon_type =#{iconType,jdbcType=VARCHAR} </if>
+   <if test="iconAccId != null and iconAccId != ''"> and  icon_acc_id =#{iconAccId,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_goodsclass 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_goodsclass
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingGoodsclass" >
+    insert into shopping_goodsclass (
+   id,
+      addTime,
+      deleteStatus,
+      className,
+      display,
+      level,
+      recommend,
+      sequence,
+      goodsType_id,
+      parent_id,
+      seo_description,
+      seo_keywords,
+      icon_sys,
+      icon_type,
+      icon_acc_id
+    )
+    values (
+ 	#{id,jdbcType=VARCHAR},
+ 	#{addTime,jdbcType=VARCHAR},
+ 	#{deleteStatus,jdbcType=VARCHAR},
+ 	#{className,jdbcType=VARCHAR},
+ 	#{display,jdbcType=VARCHAR},
+ 	#{level,jdbcType=VARCHAR},
+ 	#{recommend,jdbcType=VARCHAR},
+ 	#{sequence,jdbcType=VARCHAR},
+ 	#{goodsTypeId,jdbcType=VARCHAR},
+ 	#{parentId,jdbcType=VARCHAR},
+ 	#{seoDescription,jdbcType=VARCHAR},
+ 	#{seoKeywords,jdbcType=VARCHAR},
+ 	#{iconSys,jdbcType=VARCHAR},
+ 	#{iconType,jdbcType=VARCHAR},
+#{iconAccId,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingGoodsclass" >
+    update shopping_goodsclass
+    set 
+  	id	=#{id,jdbcType=VARCHAR},
+  	addTime	=#{addTime,jdbcType=VARCHAR},
+  	deleteStatus	=#{deleteStatus,jdbcType=VARCHAR},
+  	className	=#{className,jdbcType=VARCHAR},
+  	display	=#{display,jdbcType=VARCHAR},
+  	level	=#{level,jdbcType=VARCHAR},
+  	recommend	=#{recommend,jdbcType=VARCHAR},
+  	sequence	=#{sequence,jdbcType=VARCHAR},
+  	goodsType_id	=#{goodsTypeId,jdbcType=VARCHAR},
+  	parent_id	=#{parentId,jdbcType=VARCHAR},
+  	seo_description	=#{seoDescription,jdbcType=VARCHAR},
+  	seo_keywords	=#{seoKeywords,jdbcType=VARCHAR},
+  	icon_sys	=#{iconSys,jdbcType=VARCHAR},
+  	icon_type	=#{iconType,jdbcType=VARCHAR},
+  	icon_acc_id	= #{iconAccId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_goodsclass
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+     <resultMap id="goodsClassResultMap" type="com.sanxia.market.dto.index.GoodsClassResponse" >
+	 <id column="id" property="id"  />
+	 <result column="className" property="className"  />
+	 <result column="recommend" property="recommend"  />
+	 <result column="sequence" property="sequence"  />
+	 <result column="parent_id" property="parent_id"  />
+	 <result column="icon_sys" property="icon_sys"  />
+	 <result column="icon_type" property="icon_type"  />
+	 <result column="icon_path" property="icon_path"  />
+	 <result column="level" property="level"  />
+	 </resultMap>
+	 
+	<sql id="goodsClass_sql">
+     <if test="level != null and level != ''"> and  a.level =#{level,jdbcType=VARCHAR} </if>
+     <if test="parent_id != null and parent_id != ''"> and  a.parent_id =#{parent_id,jdbcType=VARCHAR} </if>
+    </sql>
+	  <select id="goodsclassList" parameterType="java.util.Map" resultMap="goodsClassResultMap">
+   select a.id,a.className,a.recommend,a.sequence,a.parent_id,a.icon_sys,a.icon_type,a.level,concat(b.`path`,'/',b.`name`) as icon_path 
+from `shopping_goodsclass` a left join `shopping_accessory` b on a.`icon_acc_id`=b.`id`
+    <where>
+      <include refid="goodsClass_sql" />
+      and a.deleteStatus=0 and a.display=1
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+  
+  	<select id="goodsclassParentId" parameterType="java.util.Map" resultType="java.util.Map">
+ SELECT a.id FROM shopping_goodsclass a WHERE EXISTS (  SELECT b.id FROM shopping_goodsclass b WHERE <![CDATA[ b.`parent_id` = #{param1,jdbcType=VARCHAR}  ]]>  AND b.id=a.parent_id)
+ 
+	</select>
+</mapper>

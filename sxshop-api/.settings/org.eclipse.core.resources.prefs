@@ -1,0 +1,15 @@
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/resources=UTF-8
+encoding//src/main/resources/application.properties=UTF-8
+encoding//src/main/resources/properties_config.properties=UTF-8
+encoding//src/main/webapp/jsp=UTF-8
+encoding//src/main/webapp/jsp/html/basicsettings/tgroleedit.jsp=UTF-8
+encoding//src/main/webapp/jsp/html/menu/menuadd.jsp=UTF-8
+encoding//src/main/webapp/jsp/html/menu/menulist.jsp=UTF-8
+encoding//src/main/webapp/jsp/html/user/index.html=UTF-8
+encoding//src/main/webapp/jsp/html/user/modifyPassword.html=UTF-8
+encoding//src/main/webapp/jsp/html/userdata/index.jsp=UTF-8
+encoding//src/main/webapp/jsp/login.jsp=UTF-8
+encoding//src/test/java=UTF-8
+encoding/<project>=UTF-8

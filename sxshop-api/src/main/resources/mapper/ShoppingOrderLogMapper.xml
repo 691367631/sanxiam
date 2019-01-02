@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingOrderLogDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingOrderLog" >
+	<id column="id" property="id"  />
+	 <result column="addTime" property="addTime"  />
+	 <result column="deleteStatus" property="deleteStatus"  />
+	 <result column="log_info" property="logInfo"  />
+	 <result column="state_info" property="stateInfo"  />
+	 <result column="log_user_id" property="logUserId"  />
+	 <result column="of_id" property="ofId"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   id,
+   addTime,
+   deleteStatus,
+   log_info,
+   state_info,
+   log_user_id,
+   of_id
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_order_log
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_order_log
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_order_log
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="id != null and id != ''"> and  id =#{id,jdbcType=VARCHAR} </if>
+   <if test="addTime != null and addTime != ''"> and  addTime =#{addTime,jdbcType=VARCHAR} </if>
+   <if test="deleteStatus != null and deleteStatus != ''"> and  deleteStatus =#{deleteStatus,jdbcType=VARCHAR} </if>
+   <if test="logInfo != null and logInfo != ''"> and  log_info =#{logInfo,jdbcType=VARCHAR} </if>
+   <if test="stateInfo != null and stateInfo != ''"> and  state_info =#{stateInfo,jdbcType=VARCHAR} </if>
+   <if test="logUserId != null and logUserId != ''"> and  log_user_id =#{logUserId,jdbcType=VARCHAR} </if>
+   <if test="ofId != null and ofId != ''"> and  of_id =#{ofId,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_order_log 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_order_log
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingOrderLog" >
+    insert into shopping_order_log (
+   id,
+      addTime,
+      deleteStatus,
+      log_info,
+      state_info,
+      log_user_id,
+      of_id
+    )
+    values (
+ 	#{id,jdbcType=VARCHAR},
+ 	#{addTime,jdbcType=VARCHAR},
+ 	#{deleteStatus,jdbcType=VARCHAR},
+ 	#{logInfo,jdbcType=VARCHAR},
+ 	#{stateInfo,jdbcType=VARCHAR},
+ 	#{logUserId,jdbcType=VARCHAR},
+#{ofId,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingOrderLog" >
+    update shopping_order_log
+    set 
+  	id	=#{id,jdbcType=VARCHAR},
+  	addTime	=#{addTime,jdbcType=VARCHAR},
+  	deleteStatus	=#{deleteStatus,jdbcType=VARCHAR},
+  	log_info	=#{logInfo,jdbcType=VARCHAR},
+  	state_info	=#{stateInfo,jdbcType=VARCHAR},
+  	log_user_id	=#{logUserId,jdbcType=VARCHAR},
+  	of_id	= #{ofId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_order_log
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<delete id="deleteAlllog" parameterType="String">
+		delete from
+		shopping_order_log
+		where  of_id = #{param1,jdbcType=VARCHAR}
+	</delete>
+</mapper>

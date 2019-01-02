@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingGoodscartDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingGoodscart" >
+	<id column="id" property="id"  />
+	 <result column="addTime" property="addTime"  />
+	 <result column="deleteStatus" property="deleteStatus"  />
+	 <result column="count" property="count"  />
+	 <result column="price" property="price"  />
+	 <result column="spec_info" property="specInfo"  />
+	 <result column="goods_id" property="goodsId"  />
+	 <result column="of_id" property="ofId"  />
+	 <result column="cart_type" property="cartType"  />
+	 <result column="sc_id" property="scId"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   id,
+   addTime,
+   deleteStatus,
+   count,
+   price,
+   spec_info,
+   goods_id,
+   of_id,
+   cart_type,
+   sc_id
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_goodscart
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_goodscart
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_goodscart
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="id != null and id != ''"> and  id =#{id,jdbcType=VARCHAR} </if>
+   <if test="addTime != null and addTime != ''"> and  addTime =#{addTime,jdbcType=VARCHAR} </if>
+   <if test="deleteStatus != null and deleteStatus != ''"> and  deleteStatus =#{deleteStatus,jdbcType=VARCHAR} </if>
+   <if test="count != null and count != ''"> and  count =#{count,jdbcType=VARCHAR} </if>
+   <if test="price != null and price != ''"> and  price =#{price,jdbcType=VARCHAR} </if>
+   <if test="specInfo != null and specInfo != ''"> and  spec_info =#{specInfo,jdbcType=VARCHAR} </if>
+   <if test="goodsId != null and goodsId != ''"> and  goods_id =#{goodsId,jdbcType=VARCHAR} </if>
+   <if test="ofId != null and ofId != ''"> and  of_id =#{ofId,jdbcType=VARCHAR} </if>
+   <if test="cartType != null and cartType != ''"> and  cart_type =#{cartType,jdbcType=VARCHAR} </if>
+   <if test="scId != null and scId != ''"> and  sc_id =#{scId,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_goodscart 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_goodscart
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingGoodscart"  useGeneratedKeys="true" keyProperty="id" keyColumn="id" >
+    insert into shopping_goodscart (
+   id,
+      addTime,
+      deleteStatus,
+      count,
+      price,
+      spec_info,
+      goods_id,
+      of_id,
+      cart_type,
+      sc_id
+    )
+    values (
+ 	#{id,jdbcType=VARCHAR},
+ 	#{addTime,jdbcType=VARCHAR},
+ 	#{deleteStatus,jdbcType=VARCHAR},
+ 	#{count,jdbcType=VARCHAR},
+ 	#{price,jdbcType=VARCHAR},
+ 	#{specInfo,jdbcType=VARCHAR},
+ 	#{goodsId,jdbcType=VARCHAR},
+ 	#{ofId,jdbcType=VARCHAR},
+ 	#{cartType,jdbcType=VARCHAR},
+#{scId,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingGoodscart" >
+    update shopping_goodscart
+    set 
+  	id	=#{id,jdbcType=VARCHAR},
+  	addTime	=#{addTime,jdbcType=VARCHAR},
+  	deleteStatus	=#{deleteStatus,jdbcType=VARCHAR},
+  	count	=#{count,jdbcType=VARCHAR},
+  	price	=#{price,jdbcType=VARCHAR},
+  	spec_info	=#{specInfo,jdbcType=VARCHAR},
+  	goods_id	=#{goodsId,jdbcType=VARCHAR},
+  	of_id	=#{ofId,jdbcType=VARCHAR},
+  	cart_type	=#{cartType,jdbcType=VARCHAR},
+  	sc_id	= #{scId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_goodscart
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	
+
+	 
+	<sql id="ckeckTotalPrice_sql">
+     <if test="goodscart_ids != null and goodscart_ids != ''"> and  id in 
+     <foreach collection="goodscart_ids" index="index" item="item" open="(" separator="," close=")">  
+            #{item}  
+        </foreach>
+     </if>
+    </sql>
+	  <select id="ckeckTotalPrice" parameterType="java.util.Map" resultType="java.util.Map">
+   SELECT SUM((price*COUNT)) AS total_price FROM `shopping_goodscart` 
+    <where>
+      <include refid="ckeckTotalPrice_sql" />
+      and deleteStatus=0 
+    </where>
+  </select>
+  
+  
+   <resultMap id="listByOrderGoodsResultMap" type="com.sanxia.market.dto.order.OrderGoods" >
+	 <result column="goods_name" property="goods_name"  />
+	 <result column="goods_id" property="goods_id"  />
+	 <result column="goods_count" property="goods_count"  />
+	 <result column="spec_info" property="spec_info"  />
+	 <result column="price" property="price"  />
+	 <result column="goods_main_photo" property="goods_main_photo"  />
+	 </resultMap>
+	 
+	<sql id="listByOrderGoods_sql">
+     <if test="ofId != null and ofId != ''"> and <![CDATA[ a.of_id = #{ofId,jdbcType=VARCHAR} ]]>  </if>
+    </sql>
+	  <select id="listByOrderGoods" parameterType="java.util.Map" resultMap="listByOrderGoodsResultMap">
+     SELECT a.`price`,a.`count` AS goods_count,a.`spec_info`,a.`goods_id`,b.`goods_name`,CONCAT(c.path,'/',c.name) AS goods_main_photo FROM `shopping_goodscart` a LEFT JOIN `shopping_goods` b ON a.`goods_id`=b.`id` LEFT JOIN `shopping_accessory` c ON b.goods_main_photo_id=c.id
+    <where>
+      <include refid="listByOrderGoods_sql" />
+    </where>
+  <!--   <![CDATA[ order by a.addTime desc limit #{pageFirst}, #{pageSize}]]>  -->
+  </select>
+  
+    <delete id="deleteByOrderId" parameterType="String">
+		delete from
+		shopping_goodscart
+		where  of_id = #{param1,jdbcType=VARCHAR}
+	</delete>
+  
+</mapper>

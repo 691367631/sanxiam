@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingGoodsDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingGoods" >
+	<id column="id" property="id"  />
+	 <result column="addTime" property="addTime"  />
+	 <result column="deleteStatus" property="deleteStatus"  />
+	 <result column="goods_click" property="goodsClick"  />
+	 <result column="goods_details" property="goodsDetails"  />
+	 <result column="goods_fee" property="goodsFee"  />
+	 <result column="goods_inventory" property="goodsInventory"  />
+	 <result column="goods_inventory_detail" property="goodsInventoryDetail"  />
+	 <result column="goods_name" property="goodsName"  />
+	 <result column="goods_price" property="goodsPrice"  />
+	 <result column="goods_property" property="goodsProperty"  />
+	 <result column="goods_recommend" property="goodsRecommend"  />
+	 <result column="goods_salenum" property="goodsSalenum"  />
+	 <result column="goods_seller_time" property="goodsSellerTime"  />
+	 <result column="goods_serial" property="goodsSerial"  />
+	 <result column="goods_status" property="goodsStatus"  />
+	 <result column="goods_transfee" property="goodsTransfee"  />
+	 <result column="goods_weight" property="goodsWeight"  />
+	 <result column="inventory_type" property="inventoryType"  />
+	 <result column="seo_description" property="seoDescription"  />
+	 <result column="seo_keywords" property="seoKeywords"  />
+	 <result column="store_price" property="storePrice"  />
+	 <result column="store_recommend" property="storeRecommend"  />
+	 <result column="store_recommend_time" property="storeRecommendTime"  />
+	 <result column="ztc_admin_content" property="ztcAdminContent"  />
+	 <result column="ztc_apply_time" property="ztcApplyTime"  />
+	 <result column="ztc_begin_time" property="ztcBeginTime"  />
+	 <result column="ztc_click_num" property="ztcClickNum"  />
+	 <result column="ztc_dredge_price" property="ztcDredgePrice"  />
+	 <result column="ztc_gold" property="ztcGold"  />
+	 <result column="ztc_pay_status" property="ztcPayStatus"  />
+	 <result column="ztc_price" property="ztcPrice"  />
+	 <result column="ztc_status" property="ztcStatus"  />
+	 <result column="gc_id" property="gcId"  />
+	 <result column="goods_brand_id" property="goodsBrandId"  />
+	 <result column="goods_main_photo_id" property="goodsMainPhotoId"  />
+	 <result column="goods_store_id" property="goodsStoreId"  />
+	 <result column="ztc_admin_id" property="ztcAdminId"  />
+	 <result column="goods_collect" property="goodsCollect"  />
+	 <result column="group_buy" property="groupBuy"  />
+	 <result column="goods_choice_type" property="goodsChoiceType"  />
+	 <result column="group_id" property="groupId"  />
+	 <result column="activity_status" property="activityStatus"  />
+	 <result column="bargain_status" property="bargainStatus"  />
+	 <result column="delivery_status" property="deliveryStatus"  />
+	 <result column="goods_current_price" property="goodsCurrentPrice"  />
+	 <result column="goods_volume" property="goodsVolume"  />
+	 <result column="ems_trans_fee" property="emsTransFee"  />
+	 <result column="express_trans_fee" property="expressTransFee"  />
+	 <result column="mail_trans_fee" property="mailTransFee"  />
+	 <result column="transport_id" property="transportId"  />
+	 <result column="combin_status" property="combinStatus"  />
+	 <result column="combin_begin_time" property="combinBeginTime"  />
+	 <result column="combin_end_time" property="combinEndTime"  />
+	 <result column="combin_price" property="combinPrice"  />
+	 <result column="description_evaluate" property="descriptionEvaluate"  />
+	 <result column="weixin_shop_hot" property="weixinShopHot"  />
+	 <result column="weixin_shop_hotTime" property="weixinShopHotTime"  />
+	 <result column="weixin_shop_recommend" property="weixinShopRecommend"  />
+	 <result column="weixin_shop_recommendTime" property="weixinShopRecommendTime"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   id,
+   addTime,
+   deleteStatus,
+   goods_click,
+   goods_details,
+   goods_fee,
+   goods_inventory,
+   goods_inventory_detail,
+   goods_name,
+   goods_price,
+   goods_property,
+   goods_recommend,
+   goods_salenum,
+   goods_seller_time,
+   goods_serial,
+   goods_status,
+   goods_transfee,
+   goods_weight,
+   inventory_type,
+   seo_description,
+   seo_keywords,
+   store_price,
+   store_recommend,
+   store_recommend_time,
+   ztc_admin_content,
+   ztc_apply_time,
+   ztc_begin_time,
+   ztc_click_num,
+   ztc_dredge_price,
+   ztc_gold,
+   ztc_pay_status,
+   ztc_price,
+   ztc_status,
+   gc_id,
+   goods_brand_id,
+   goods_main_photo_id,
+   goods_store_id,
+   ztc_admin_id,
+   goods_collect,
+   group_buy,
+   goods_choice_type,
+   group_id,
+   activity_status,
+   bargain_status,
+   delivery_status,
+   goods_current_price,
+   goods_volume,
+   ems_trans_fee,
+   express_trans_fee,
+   mail_trans_fee,
+   transport_id,
+   combin_status,
+   combin_begin_time,
+   combin_end_time,
+   combin_price,
+   description_evaluate,
+   weixin_shop_hot,
+   weixin_shop_hotTime,
+   weixin_shop_recommend,
+   weixin_shop_recommendTime
+  </sql>
+	
+	
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_goods
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_goods
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_goods
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="id != null and id != ''"> and  id =#{id,jdbcType=VARCHAR} </if>
+   <if test="addTime != null and addTime != ''"> and  addTime =#{addTime,jdbcType=VARCHAR} </if>
+   <if test="deleteStatus != null and deleteStatus != ''"> and  deleteStatus =#{deleteStatus,jdbcType=VARCHAR} </if>
+   <if test="goodsClick != null and goodsClick != ''"> and  goods_click =#{goodsClick,jdbcType=VARCHAR} </if>
+   <if test="goodsDetails != null and goodsDetails != ''"> and  goods_details =#{goodsDetails,jdbcType=VARCHAR} </if>
+   <if test="goodsFee != null and goodsFee != ''"> and  goods_fee =#{goodsFee,jdbcType=VARCHAR} </if>
+   <if test="goodsInventory != null and goodsInventory != ''"> and  goods_inventory =#{goodsInventory,jdbcType=VARCHAR} </if>
+   <if test="goodsInventoryDetail != null and goodsInventoryDetail != ''"> and  goods_inventory_detail =#{goodsInventoryDetail,jdbcType=VARCHAR} </if>
+   <if test="goodsName != null and goodsName != ''"> and  goods_name =#{goodsName,jdbcType=VARCHAR} </if>
+   <if test="goodsPrice != null and goodsPrice != ''"> and  goods_price =#{goodsPrice,jdbcType=VARCHAR} </if>
+   <if test="goodsProperty != null and goodsProperty != ''"> and  goods_property =#{goodsProperty,jdbcType=VARCHAR} </if>
+   <if test="goodsRecommend != null and goodsRecommend != ''"> and  goods_recommend =#{goodsRecommend,jdbcType=VARCHAR} </if>
+   <if test="goodsSalenum != null and goodsSalenum != ''"> and  goods_salenum =#{goodsSalenum,jdbcType=VARCHAR} </if>
+   <if test="goodsSellerTime != null and goodsSellerTime != ''"> and  goods_seller_time =#{goodsSellerTime,jdbcType=VARCHAR} </if>
+   <if test="goodsSerial != null and goodsSerial != ''"> and  goods_serial =#{goodsSerial,jdbcType=VARCHAR} </if>
+   <if test="goodsStatus != null and goodsStatus != ''"> and  goods_status =#{goodsStatus,jdbcType=VARCHAR} </if>
+   <if test="goodsTransfee != null and goodsTransfee != ''"> and  goods_transfee =#{goodsTransfee,jdbcType=VARCHAR} </if>
+   <if test="goodsWeight != null and goodsWeight != ''"> and  goods_weight =#{goodsWeight,jdbcType=VARCHAR} </if>
+   <if test="inventoryType != null and inventoryType != ''"> and  inventory_type =#{inventoryType,jdbcType=VARCHAR} </if>
+   <if test="seoDescription != null and seoDescription != ''"> and  seo_description =#{seoDescription,jdbcType=VARCHAR} </if>
+   <if test="seoKeywords != null and seoKeywords != ''"> and  seo_keywords =#{seoKeywords,jdbcType=VARCHAR} </if>
+   <if test="storePrice != null and storePrice != ''"> and  store_price =#{storePrice,jdbcType=VARCHAR} </if>
+   <if test="storeRecommend != null and storeRecommend != ''"> and  store_recommend =#{storeRecommend,jdbcType=VARCHAR} </if>
+   <if test="storeRecommendTime != null and storeRecommendTime != ''"> and  store_recommend_time =#{storeRecommendTime,jdbcType=VARCHAR} </if>
+   <if test="ztcAdminContent != null and ztcAdminContent != ''"> and  ztc_admin_content =#{ztcAdminContent,jdbcType=VARCHAR} </if>
+   <if test="ztcApplyTime != null and ztcApplyTime != ''"> and  ztc_apply_time =#{ztcApplyTime,jdbcType=VARCHAR} </if>
+   <if test="ztcBeginTime != null and ztcBeginTime != ''"> and  ztc_begin_time =#{ztcBeginTime,jdbcType=VARCHAR} </if>
+   <if test="ztcClickNum != null and ztcClickNum != ''"> and  ztc_click_num =#{ztcClickNum,jdbcType=VARCHAR} </if>
+   <if test="ztcDredgePrice != null and ztcDredgePrice != ''"> and  ztc_dredge_price =#{ztcDredgePrice,jdbcType=VARCHAR} </if>
+   <if test="ztcGold != null and ztcGold != ''"> and  ztc_gold =#{ztcGold,jdbcType=VARCHAR} </if>
+   <if test="ztcPayStatus != null and ztcPayStatus != ''"> and  ztc_pay_status =#{ztcPayStatus,jdbcType=VARCHAR} </if>
+   <if test="ztcPrice != null and ztcPrice != ''"> and  ztc_price =#{ztcPrice,jdbcType=VARCHAR} </if>
+   <if test="ztcStatus != null and ztcStatus != ''"> and  ztc_status =#{ztcStatus,jdbcType=VARCHAR} </if>
+   <if test="gcId != null and gcId != ''"> and  gc_id =#{gcId,jdbcType=VARCHAR} </if>
+   <if test="goodsBrandId != null and goodsBrandId != ''"> and  goods_brand_id =#{goodsBrandId,jdbcType=VARCHAR} </if>
+   <if test="goodsMainPhotoId != null and goodsMainPhotoId != ''"> and  goods_main_photo_id =#{goodsMainPhotoId,jdbcType=VARCHAR} </if>
+   <if test="goodsStoreId != null and goodsStoreId != ''"> and  goods_store_id =#{goodsStoreId,jdbcType=VARCHAR} </if>
+   <if test="ztcAdminId != null and ztcAdminId != ''"> and  ztc_admin_id =#{ztcAdminId,jdbcType=VARCHAR} </if>
+   <if test="goodsCollect != null and goodsCollect != ''"> and  goods_collect =#{goodsCollect,jdbcType=VARCHAR} </if>
+   <if test="groupBuy != null and groupBuy != ''"> and  group_buy =#{groupBuy,jdbcType=VARCHAR} </if>
+   <if test="goodsChoiceType != null and goodsChoiceType != ''"> and  goods_choice_type =#{goodsChoiceType,jdbcType=VARCHAR} </if>
+   <if test="groupId != null and groupId != ''"> and  group_id =#{groupId,jdbcType=VARCHAR} </if>
+   <if test="activityStatus != null and activityStatus != ''"> and  activity_status =#{activityStatus,jdbcType=VARCHAR} </if>
+   <if test="bargainStatus != null and bargainStatus != ''"> and  bargain_status =#{bargainStatus,jdbcType=VARCHAR} </if>
+   <if test="deliveryStatus != null and deliveryStatus != ''"> and  delivery_status =#{deliveryStatus,jdbcType=VARCHAR} </if>
+   <if test="goodsCurrentPrice != null and goodsCurrentPrice != ''"> and  goods_current_price =#{goodsCurrentPrice,jdbcType=VARCHAR} </if>
+   <if test="goodsVolume != null and goodsVolume != ''"> and  goods_volume =#{goodsVolume,jdbcType=VARCHAR} </if>
+   <if test="emsTransFee != null and emsTransFee != ''"> and  ems_trans_fee =#{emsTransFee,jdbcType=VARCHAR} </if>
+   <if test="expressTransFee != null and expressTransFee != ''"> and  express_trans_fee =#{expressTransFee,jdbcType=VARCHAR} </if>
+   <if test="mailTransFee != null and mailTransFee != ''"> and  mail_trans_fee =#{mailTransFee,jdbcType=VARCHAR} </if>
+   <if test="transportId != null and transportId != ''"> and  transport_id =#{transportId,jdbcType=VARCHAR} </if>
+   <if test="combinStatus != null and combinStatus != ''"> and  combin_status =#{combinStatus,jdbcType=VARCHAR} </if>
+   <if test="combinBeginTime != null and combinBeginTime != ''"> and  combin_begin_time =#{combinBeginTime,jdbcType=VARCHAR} </if>
+   <if test="combinEndTime != null and combinEndTime != ''"> and  combin_end_time =#{combinEndTime,jdbcType=VARCHAR} </if>
+   <if test="combinPrice != null and combinPrice != ''"> and  combin_price =#{combinPrice,jdbcType=VARCHAR} </if>
+   <if test="descriptionEvaluate != null and descriptionEvaluate != ''"> and  description_evaluate =#{descriptionEvaluate,jdbcType=VARCHAR} </if>
+   <if test="weixinShopHot != null and weixinShopHot != ''"> and  weixin_shop_hot =#{weixinShopHot,jdbcType=VARCHAR} </if>
+   <if test="weixinShopHotTime != null and weixinShopHotTime != ''"> and  weixin_shop_hotTime =#{weixinShopHotTime,jdbcType=VARCHAR} </if>
+   <if test="weixinShopRecommend != null and weixinShopRecommend != ''"> and  weixin_shop_recommend =#{weixinShopRecommend,jdbcType=VARCHAR} </if>
+   <if test="weixinShopRecommendTime != null and weixinShopRecommendTime != ''"> and  weixin_shop_recommendTime =#{weixinShopRecommendTime,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_goods 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_goods
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingGoods" >
+    insert into shopping_goods (
+   id,
+      addTime,
+      deleteStatus,
+      goods_click,
+      goods_details,
+      goods_fee,
+      goods_inventory,
+      goods_inventory_detail,
+      goods_name,
+      goods_price,
+      goods_property,
+      goods_recommend,
+      goods_salenum,
+      goods_seller_time,
+      goods_serial,
+      goods_status,
+      goods_transfee,
+      goods_weight,
+      inventory_type,
+      seo_description,
+      seo_keywords,
+      store_price,
+      store_recommend,
+      store_recommend_time,
+      ztc_admin_content,
+      ztc_apply_time,
+      ztc_begin_time,
+      ztc_click_num,
+      ztc_dredge_price,
+      ztc_gold,
+      ztc_pay_status,
+      ztc_price,
+      ztc_status,
+      gc_id,
+      goods_brand_id,
+      goods_main_photo_id,
+      goods_store_id,
+      ztc_admin_id,
+      goods_collect,
+      group_buy,
+      goods_choice_type,
+      group_id,
+      activity_status,
+      bargain_status,
+      delivery_status,
+      goods_current_price,
+      goods_volume,
+      ems_trans_fee,
+      express_trans_fee,
+      mail_trans_fee,
+      transport_id,
+      combin_status,
+      combin_begin_time,
+      combin_end_time,
+      combin_price,
+      description_evaluate,
+      weixin_shop_hot,
+      weixin_shop_hotTime,
+      weixin_shop_recommend,
+      weixin_shop_recommendTime
+    )
+    values (
+ 	#{id,jdbcType=VARCHAR},
+ 	#{addTime,jdbcType=VARCHAR},
+ 	#{deleteStatus,jdbcType=VARCHAR},
+ 	#{goodsClick,jdbcType=VARCHAR},
+ 	#{goodsDetails,jdbcType=VARCHAR},
+ 	#{goodsFee,jdbcType=VARCHAR},
+ 	#{goodsInventory,jdbcType=VARCHAR},
+ 	#{goodsInventoryDetail,jdbcType=VARCHAR},
+ 	#{goodsName,jdbcType=VARCHAR},
+ 	#{goodsPrice,jdbcType=VARCHAR},
+ 	#{goodsProperty,jdbcType=VARCHAR},
+ 	#{goodsRecommend,jdbcType=VARCHAR},
+ 	#{goodsSalenum,jdbcType=VARCHAR},
+ 	#{goodsSellerTime,jdbcType=VARCHAR},
+ 	#{goodsSerial,jdbcType=VARCHAR},
+ 	#{goodsStatus,jdbcType=VARCHAR},
+ 	#{goodsTransfee,jdbcType=VARCHAR},
+ 	#{goodsWeight,jdbcType=VARCHAR},
+ 	#{inventoryType,jdbcType=VARCHAR},
+ 	#{seoDescription,jdbcType=VARCHAR},
+ 	#{seoKeywords,jdbcType=VARCHAR},
+ 	#{storePrice,jdbcType=VARCHAR},
+ 	#{storeRecommend,jdbcType=VARCHAR},
+ 	#{storeRecommendTime,jdbcType=VARCHAR},
+ 	#{ztcAdminContent,jdbcType=VARCHAR},
+ 	#{ztcApplyTime,jdbcType=VARCHAR},
+ 	#{ztcBeginTime,jdbcType=VARCHAR},
+ 	#{ztcClickNum,jdbcType=VARCHAR},
+ 	#{ztcDredgePrice,jdbcType=VARCHAR},
+ 	#{ztcGold,jdbcType=VARCHAR},
+ 	#{ztcPayStatus,jdbcType=VARCHAR},
+ 	#{ztcPrice,jdbcType=VARCHAR},
+ 	#{ztcStatus,jdbcType=VARCHAR},
+ 	#{gcId,jdbcType=VARCHAR},
+ 	#{goodsBrandId,jdbcType=VARCHAR},
+ 	#{goodsMainPhotoId,jdbcType=VARCHAR},
+ 	#{goodsStoreId,jdbcType=VARCHAR},
+ 	#{ztcAdminId,jdbcType=VARCHAR},
+ 	#{goodsCollect,jdbcType=VARCHAR},
+ 	#{groupBuy,jdbcType=VARCHAR},
+ 	#{goodsChoiceType,jdbcType=VARCHAR},
+ 	#{groupId,jdbcType=VARCHAR},
+ 	#{activityStatus,jdbcType=VARCHAR},
+ 	#{bargainStatus,jdbcType=VARCHAR},
+ 	#{deliveryStatus,jdbcType=VARCHAR},
+ 	#{goodsCurrentPrice,jdbcType=VARCHAR},
+ 	#{goodsVolume,jdbcType=VARCHAR},
+ 	#{emsTransFee,jdbcType=VARCHAR},
+ 	#{expressTransFee,jdbcType=VARCHAR},
+ 	#{mailTransFee,jdbcType=VARCHAR},
+ 	#{transportId,jdbcType=VARCHAR},
+ 	#{combinStatus,jdbcType=VARCHAR},
+ 	#{combinBeginTime,jdbcType=VARCHAR},
+ 	#{combinEndTime,jdbcType=VARCHAR},
+ 	#{combinPrice,jdbcType=VARCHAR},
+ 	#{descriptionEvaluate,jdbcType=VARCHAR},
+ 	#{weixinShopHot,jdbcType=VARCHAR},
+ 	#{weixinShopHotTime,jdbcType=VARCHAR},
+ 	#{weixinShopRecommend,jdbcType=VARCHAR},
+#{weixinShopRecommendTime,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingGoods" >
+    update shopping_goods
+    set 
+  	id	=#{id,jdbcType=VARCHAR},
+  	addTime	=#{addTime,jdbcType=VARCHAR},
+  	deleteStatus	=#{deleteStatus,jdbcType=VARCHAR},
+  	goods_click	=#{goodsClick,jdbcType=VARCHAR},
+  	goods_details	=#{goodsDetails,jdbcType=VARCHAR},
+  	goods_fee	=#{goodsFee,jdbcType=VARCHAR},
+  	goods_inventory	=#{goodsInventory,jdbcType=VARCHAR},
+  	goods_inventory_detail	=#{goodsInventoryDetail,jdbcType=VARCHAR},
+  	goods_name	=#{goodsName,jdbcType=VARCHAR},
+  	goods_price	=#{goodsPrice,jdbcType=VARCHAR},
+  	goods_property	=#{goodsProperty,jdbcType=VARCHAR},
+  	goods_recommend	=#{goodsRecommend,jdbcType=VARCHAR},
+  	goods_salenum	=#{goodsSalenum,jdbcType=VARCHAR},
+  	goods_seller_time	=#{goodsSellerTime,jdbcType=VARCHAR},
+  	goods_serial	=#{goodsSerial,jdbcType=VARCHAR},
+  	goods_status	=#{goodsStatus,jdbcType=VARCHAR},
+  	goods_transfee	=#{goodsTransfee,jdbcType=VARCHAR},
+  	goods_weight	=#{goodsWeight,jdbcType=VARCHAR},
+  	inventory_type	=#{inventoryType,jdbcType=VARCHAR},
+  	seo_description	=#{seoDescription,jdbcType=VARCHAR},
+  	seo_keywords	=#{seoKeywords,jdbcType=VARCHAR},
+  	store_price	=#{storePrice,jdbcType=VARCHAR},
+  	store_recommend	=#{storeRecommend,jdbcType=VARCHAR},
+  	store_recommend_time	=#{storeRecommendTime,jdbcType=VARCHAR},
+  	ztc_admin_content	=#{ztcAdminContent,jdbcType=VARCHAR},
+  	ztc_apply_time	=#{ztcApplyTime,jdbcType=VARCHAR},
+  	ztc_begin_time	=#{ztcBeginTime,jdbcType=VARCHAR},
+  	ztc_click_num	=#{ztcClickNum,jdbcType=VARCHAR},
+  	ztc_dredge_price	=#{ztcDredgePrice,jdbcType=VARCHAR},
+  	ztc_gold	=#{ztcGold,jdbcType=VARCHAR},
+  	ztc_pay_status	=#{ztcPayStatus,jdbcType=VARCHAR},
+  	ztc_price	=#{ztcPrice,jdbcType=VARCHAR},
+  	ztc_status	=#{ztcStatus,jdbcType=VARCHAR},
+  	gc_id	=#{gcId,jdbcType=VARCHAR},
+  	goods_brand_id	=#{goodsBrandId,jdbcType=VARCHAR},
+  	goods_main_photo_id	=#{goodsMainPhotoId,jdbcType=VARCHAR},
+  	goods_store_id	=#{goodsStoreId,jdbcType=VARCHAR},
+  	ztc_admin_id	=#{ztcAdminId,jdbcType=VARCHAR},
+  	goods_collect	=#{goodsCollect,jdbcType=VARCHAR},
+  	group_buy	=#{groupBuy,jdbcType=VARCHAR},
+  	goods_choice_type	=#{goodsChoiceType,jdbcType=VARCHAR},
+  	group_id	=#{groupId,jdbcType=VARCHAR},
+  	activity_status	=#{activityStatus,jdbcType=VARCHAR},
+  	bargain_status	=#{bargainStatus,jdbcType=VARCHAR},
+  	delivery_status	=#{deliveryStatus,jdbcType=VARCHAR},
+  	goods_current_price	=#{goodsCurrentPrice,jdbcType=VARCHAR},
+  	goods_volume	=#{goodsVolume,jdbcType=VARCHAR},
+  	ems_trans_fee	=#{emsTransFee,jdbcType=VARCHAR},
+  	express_trans_fee	=#{expressTransFee,jdbcType=VARCHAR},
+  	mail_trans_fee	=#{mailTransFee,jdbcType=VARCHAR},
+  	transport_id	=#{transportId,jdbcType=VARCHAR},
+  	combin_status	=#{combinStatus,jdbcType=VARCHAR},
+  	combin_begin_time	=#{combinBeginTime,jdbcType=VARCHAR},
+  	combin_end_time	=#{combinEndTime,jdbcType=VARCHAR},
+  	combin_price	=#{combinPrice,jdbcType=VARCHAR},
+  	description_evaluate	=#{descriptionEvaluate,jdbcType=VARCHAR},
+  	weixin_shop_hot	=#{weixinShopHot,jdbcType=VARCHAR},
+  	weixin_shop_hotTime	=#{weixinShopHotTime,jdbcType=VARCHAR},
+  	weixin_shop_recommend	=#{weixinShopRecommend,jdbcType=VARCHAR},
+  	weixin_shop_recommendTime	= #{weixinShopRecommendTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_goods
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	 <resultMap id="goodsResultMap" type="com.sanxia.market.dto.index.GoodsResponse" >
+	 <id column="id" property="id"  />
+	 <result column="goods_name" property="goods_name"  />
+	 <result column="goods_main_photo_id" property="goods_main_photo_id"  />
+	 <result column="goods_current_price" property="goods_current_price"  />
+	 </resultMap>
+	 
+	<sql id="goods_sql">
+     <if test="gc_id != null and gc_id != ''"> and  a.gc_id in 
+     <foreach collection="gc_id" index="index" item="item" open="(" separator="," close=")">  
+            #{item}  
+        </foreach>
+     </if>
+     <if test="keywords != null and keywords != ''"> and  a.goods_name like #{keywords,jdbcType=VARCHAR} </if>
+     <if test="isrecommend != null and isrecommend != ''"> and  a.store_recommend = #{isrecommend,jdbcType=VARCHAR} </if>
+     <if test="goods_id != null and goods_id != ''"> and  a.id = #{goods_id,jdbcType=VARCHAR} </if>
+    </sql>
+	  <select id="goodsListAll" parameterType="java.util.Map" resultMap="goodsResultMap">
+    SELECT a.id,a.goods_name,a.goods_current_price,CONCAT(b.path,'/',b.name)  AS goods_main_photo_id FROM shopping_goods a LEFT JOIN `shopping_accessory` b ON a.goods_main_photo_id=b.id
+    <where>
+      <include refid="goods_sql" />
+      and a.deleteStatus=0 and a.goods_status=0 <!--goods_status0为正常，1为商户下架 ，-2为平台违规下架  -->
+    </where>
+    <![CDATA[ order by a.goods_serial asc limit #{pageFirst}, #{pageSize}]]> 
+  </select>
+	
+	<select id="goodsListAlllistPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from (
+     SELECT a.id,a.goods_name,a.goods_current_price,CONCAT(b.path,'/',b.name)  AS goods_main_photo_id FROM shopping_goods a LEFT JOIN `shopping_accessory` b ON a.goods_main_photo_id=b.id
+    <where>
+      <include refid="goods_sql" />
+      and a.deleteStatus=0 and a.goods_status=0 <!--goods_status0为正常，1为商户下架 ，-2为平台违规下架  -->
+    </where>
+    ) m
+  </select>
+	
+  <sql id="Column_List" >
+   a.id,
+   a.addTime,
+   a.deleteStatus,
+   a.goods_click,
+   a.goods_details,
+   a.goods_fee,
+   a.goods_inventory,
+   a.goods_inventory_detail,
+   a.goods_name,
+   a.goods_price,
+   a.goods_property,
+   a.goods_recommend,
+   a.goods_salenum,
+   a.goods_seller_time,
+   a.goods_serial,
+   a.goods_status,
+   a.goods_transfee,
+   a.goods_weight,
+   a.inventory_type,
+   a.seo_description,
+   a.seo_keywords,
+   a.store_price,
+   a.store_recommend,
+   a.store_recommend_time,
+   a.ztc_admin_content,
+   a.ztc_apply_time,
+   a.ztc_begin_time,
+   a.ztc_click_num,
+   a.ztc_dredge_price,
+   a.ztc_gold,
+   a.ztc_pay_status,
+   a.ztc_price,
+   a.ztc_status,
+   a.gc_id,
+   a.goods_brand_id,
+   a.goods_store_id,
+   a.ztc_admin_id,
+   a.goods_collect,
+   a.group_buy,
+   a.goods_choice_type,
+   a.group_id,
+   a.activity_status,
+   a.bargain_status,
+   a.delivery_status,
+   a.goods_current_price,
+   a.goods_volume,
+   a.ems_trans_fee,
+   a.express_trans_fee,
+   a.mail_trans_fee,
+   a.transport_id,
+   a.combin_status,
+   a.combin_begin_time,
+   a.combin_end_time,
+   a.combin_price,
+   a.description_evaluate,
+   a.weixin_shop_hot,
+   a.weixin_shop_hotTime,
+   a.weixin_shop_recommend,
+   a.weixin_shop_recommendTime
+  </sql>
+  <select id="getAllById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Column_List" /> , concat(b.path,'/',b.name) as goods_main_photo_id
+    from shopping_goods a left Join shopping_accessory b on  a.goods_main_photo_id=b.id
+ 	where  a.id = #{param1,jdbcType=VARCHAR}
+  </select>
+
+
+  
+   <resultMap id="queryGoodsListBySqlResultMap" type="com.sanxia.market.dto.goods.QueryGoodsListByAllResponse" >
+	 <id column="id" property="id"  />
+	 <result column="goods_name" property="goods_name"  />
+	 <result column="goods_main_photo_id" property="goods_main_photo_id"  />
+	 <result column="goods_current_price" property="goods_current_price"  />
+	 </resultMap>
+  
+  <select id="queryGoodsListBySql" parameterType="String" resultMap="queryGoodsListBySqlResultMap">  
+    ${value} 
+</select> 
+
+<select id="queryGoodsListBySqlCount" parameterType="String" resultType="long">  
+    ${value} 
+</select> 
+</mapper>

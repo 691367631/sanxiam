@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sanxia.market.dao.ShoppingGoodsPhotoDao" >
+  <resultMap id="BaseResultMap" type="com.sanxia.market.entity.ShoppingGoodsPhoto" >
+	 <result column="goods_id" property="goodsId"  />
+	 <result column="photo_id" property="photoId"  />
+	 </resultMap>
+  <sql id="Base_Column_List" >
+   goods_id,
+   photo_id
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_goods_photo
+ 	where  id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_goods_photo
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+
+  <select id="getBy" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from shopping_goods_photo
+    <where>
+      <include refid="condition_sql"/>
+    </where>
+  </select>
+  
+  <sql id="condition_sql">
+   <if test="goodsId != null and goodsId != ''"> and  goods_id =#{goodsId,jdbcType=VARCHAR} </if>
+   <if test="photoId != null and photoId != ''"> and  photo_id =#{photoId,jdbcType=VARCHAR} </if>
+  </sql>
+
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from shopping_goods_photo 
+    <where>
+      <include refid="condition_sql" />
+    </where>
+ <!--   <![CDATA[ order by create_time desc limit #{pageFirst}, #{pageSize}]]> -->
+  </select>
+
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+    select count(1) from  shopping_goods_photo
+    <where>
+      <include refid="condition_sql" />
+    </where>
+  </select>
+
+
+
+
+  <insert id="insertOne" parameterType="com.sanxia.market.entity.ShoppingGoodsPhoto" >
+    insert into shopping_goods_photo (
+   goods_id,
+      photo_id
+    )
+    values (
+ 	#{goodsId,jdbcType=VARCHAR},
+#{photoId,jdbcType=VARCHAR} 	) </insert>
+
+  <update id="updateOne" parameterType="com.sanxia.market.entity.ShoppingGoodsPhoto" >
+    update shopping_goods_photo
+    set 
+  	goods_id	=#{goodsId,jdbcType=VARCHAR},
+  	photo_id	= #{photoId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+   <delete id="delete" parameterType="String">
+		delete from
+		shopping_goods_photo
+		where  id = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	 <resultMap id="goodsDetailsPhotosResultMap" type="com.sanxia.market.dto.index.GoodsPhotoResponse" >
+	 <result column="photo_path" property="photo_path"  />
+	 </resultMap>
+	 
+	
+	  <select id="goodsDetailsPhotos" parameterType="java.util.Map" resultMap="goodsDetailsPhotosResultMap">
+   		select concat(b.`path`,'/',b.`name`) as photo_path from `shopping_goods` a left join `shopping_accessory` b on a.`goods_main_photo_id`=b.`id` where <![CDATA[ a.`id` = #{param1,jdbcType=VARCHAR}  ]]>
+		union
+		select CONCAT(b.`path`,'/',b.`name`) AS photo_path from `shopping_goods_photo` a left join `shopping_accessory` b on a.`photo_id`=b.`id` where <![CDATA[ a.`goods_id` = #{param1,jdbcType=VARCHAR}  ]]> and b.deleteStatus=0
+   		
+      </select>
+</mapper>
